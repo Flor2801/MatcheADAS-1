@@ -1,25 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
-
-.imagen {
-    width: 100vw;
-}
-
-.imagen img {
-    width: 90%
-    
-}
 
 body {
     margin: 0px;
+    background-image: url(imagenes/2029.png);
+    background-size: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
 }
 
-.contenedor {
-    background-color: rgb(216, 216, 216);
-    width: 400px;
-    height: 400px;
-    margin-top: 100px;
+
+.overlay {
+    top: 0px,
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(226, 226, 226, 0.192);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.contenedor-juego {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
+}
+
+.contador {
+    width: 350px;
+    height: 50px;
+    background-color: rgba(2, 248, 146, 0.863);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.titulo {
+    font-family: 'Pacifico', cursive;
+    font-size: 25px;
+    color: rgb(255, 71, 141);
+    text-shadow: 5px 5px #fafafa, 1px -1px #fafafa, -1px -1px #fafafa, -1px 1px #fafafa;
+    margin-bottom: 5px;
+}
+
+.grilla {
+    width: 350px;
+    height: 350px;
+    background-color: rgba(190, 190, 190, 0.438);
+    border: white 2px solid;
+    border-radius: 10px;
+margin-bottom: 10px;
+}
+
+.timer {
+
+    width: 150px;
+    height: 50px;
+    background-color: rgba(2, 248, 146, 0.863);
+    border-radius: 10px;
+    margin-bottom: 10px;
+
 }
