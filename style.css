@@ -11,6 +11,7 @@ body {
     overflow: hidden;
 }
 
+<<<<<<< HEAD
 
 .overlay {
     top: 0px,
@@ -21,6 +22,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+=======
+.imagen img {
+
+    width: 100%
+
+    
+>>>>>>> a4f7ac87646282b8bca05377cede60a9b8609bbf
 }
 
 .contenedor-juego {
@@ -39,12 +47,22 @@ body {
     margin-bottom: 10px;
 }
 
+<<<<<<< HEAD
 .titulo {
     font-family: 'Pacifico', cursive;
     font-size: 25px;
     color: rgb(255, 71, 141);
     text-shadow: 5px 5px #fafafa, 1px -1px #fafafa, -1px -1px #fafafa, -1px 1px #fafafa;
     margin-bottom: 5px;
+=======
+.contenedor {
+
+    background-color: rgb(189, 189, 189);
+
+    width: 400px;
+    height: 400px;
+    margin-top: 100px;
+>>>>>>> a4f7ac87646282b8bca05377cede60a9b8609bbf
 }
 
 .grilla {
