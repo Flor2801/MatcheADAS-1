@@ -1,7 +1,17 @@
-# PMatcheteADAs.FRES
+# MatcheADAS-1
 
-3er Trabajo práctico para la formación de Frontend Developer de ADA.
+Videojuego de coincidencias realizado durante el curso de desarrollo front-end en ADA ITW.
 
-Juego interactivo de coincidencias.
+### HTML5 - CSS3 - JavaScript - Diseño responsivo 
 
-test modifico readme
+[Disponible aquí](https://flor2801.github.io/MatcheADAS-1/) 
+
+---
+
+# MatcheADAS-1
+
+Matching videogame carried out during the front-end development course at ADA ITW.
+
+### HTML5 - CSS3 - JavaScript - Responsive Design
+
+[Available here](https://flor2801.github.io/MatcheADAS-1/)
