@@ -10,7 +10,7 @@ Videojuego de coincidencias realizado durante el curso de desarrollo front-end e
 
 # MatcheADAS-1
 
-Matching videogame carried out during the front-end development course at ADA ITW.
+Matching video game carried out during the front-end development course at ADA ITW.
 
 ### HTML5 - CSS3 - JavaScript - Responsive Design
 
