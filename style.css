@@ -77,7 +77,7 @@ body {
     align-items: center;
 }
 
-.overlay {
+/* .overlay {
     top: 0px;
     left: 0px;
     width: 100vw;
@@ -86,7 +86,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-}
+} */
 
 .modal-bienvenida {
     width: 400px;
