@@ -15,15 +15,15 @@ const nuevoJuego = document.getElementById("nuevo-juego");
 
 // Grilla
 
-let items = ["🍉", "🍐", "🍌", "🍇", "🍎", "🍊", "🍑", "🥥", "🍒", "🍋"];
-let listaDeFrutas = [];
-let frutas = "";
+let items = ["🐷", "🐹", "🦊", "🐶", "🐴", "🐔", "🐷", "🐸", "🐤", "🐱"];  
+let listaDeAnimales = [];
+let animales = "";
 
 const obtenerNumeroAlAzar = (items) => {
   let largo = items.length;
   return Math.floor(Math.random() * largo);
 };
-const obtenerFrutaAlAzar = (items) => {
+const obtenerAnimalAlAzar = (items) => {
   return items[obtenerNumeroAlAzar(items)];
 };
 
@@ -32,18 +32,18 @@ const crearGrilla = (ancho, alto) => {
   grilla.style.width = `${anchoDeGrilla}px`;
 
   for (let i = 0; i < ancho; i++) {
-    listaDeFrutas[i] = [];
+    listaDeAnimales[i] = [];
     for (let j = 0; j < alto; j++) {
-      listaDeFrutas[i][j] = obtenerFrutaAlAzar(items);
+      listaDeAnimales[i][j] = obtenerAnimalAlAzar(items);
     }
   }
 
   grilla.innerHTML = "";
-  for (let i = 0; i < listaDeFrutas.length; i++) {
-    for (let j = 0; j < listaDeFrutas[i].length; j++) {
-      frutas = obtenerFrutaAlAzar(items);
-      listaDeFrutas[i][j] = frutas;
-      grilla.innerHTML += `<div data-x="${i}" data-y="${j}"> ${frutas}</div>`;
+  for (let i = 0; i < listaDeAnimales.length; i++) {
+    for (let j = 0; j < listaDeAnimales[i].length; j++) {
+      animales = obtenerAnimalAlAzar(items);
+      listaDeAnimales[i][j] = animales;
+      grilla.innerHTML += `<div data-x="${i}" data-y="${j}"> ${animales}</div>`;
     }
   }
 
