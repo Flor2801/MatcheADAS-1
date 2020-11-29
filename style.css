@@ -6,10 +6,11 @@
 body {
     margin: 0px;
     background-image: url(imagenes/2029.png);
-    background-size: 100vw;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
 }
 
 
