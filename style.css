@@ -13,18 +13,6 @@ body {
     height: 100vh;
 }
 
-
-.overlay {
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(226, 226, 226, 0.192);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
 .contenedor-juego {
     display: flex;
     flex-direction: column;
@@ -90,8 +78,7 @@ body {
 } */
 
 .modal-bienvenida {
-    width: 400px;
-    height: 350px;
+    width: 470px;
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
 }
