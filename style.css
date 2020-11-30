@@ -47,20 +47,28 @@ body {
 }
 
 .contenedor-timer {
-    width: 180px;
-    height: 70px;
+    width: 200px;
+    height: 50px;
     background-color: rgba(2, 248, 146, 0.863);
     border-radius: 10px;
     margin-bottom: 10px;
     display:flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content:center;
+    align-items: center;
     font-size: 30px;
     color:white;
+    position: relative;
+   
+    
 }
+
 .fa-hourglass-half{
-    margin:0px;
+    position:absolute;
+    left: 10px;
+  
 }
+ 
+
 
 
 .bienvenida {

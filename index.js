@@ -67,7 +67,7 @@ const agregarGrillaAHTML = (ancho) => {
 const iniciarJuego = () => {
   crearGrilla(6, 6)
   agregarGrillaAHTML(6)
-
+  parrafoSegundos.textContent= "0 : 30"
   let limiteDeTiempo = new Date()
   limiteDeTiempo.setSeconds(limiteDeTiempo.getSeconds()+30)
 
