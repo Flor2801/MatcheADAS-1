@@ -4,54 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document nuevo</title>
+    <title>MatcheADAS-1</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  
-<!--
+
+
     <div class="bienvenida" id="bienvenida">
         <div class="modal-bienvenida" id="modal-inicial">
             <div class="texto-bienvenida">
                 <h1>¡Bienvenide!</h1>
                 <p>En MatcheADAs tu objetivo es juntar 3 o más ítems del mismo tipo, ya sea en fila o en columna.
-                    <br>Para eso, seleccioná un ítem y a consitnuación un ítem adyacente para intercambiarlos de lugar.
-                    <br>Si se forma un grupo, esos ítems se eliminarán y ganarás puntos.
-                    ¡Sigue armando grupos de 3 o más antes de que se cabe el tiempo!
-                    <br>CONTROLES
-                    <br> Click izquierdo: selección. Enter o espacio: selección.Fichas o WASD: Movimiento e
-                    intercambio.
-                    blabla
-
+                    Para eso, seleccioná un ítem y a consitnuación un ítem adyacente para intercambiarlos de lugar.<br><br>
+                    Si se forma un grupo, esos ítems se eliminarán y ganarás puntos.
+                    ¡Sigue armando grupos de 3 o más antes de que se cabe el tiempo!<br><br>
+                    <strong>Controles</strong>
+                    <br> Click izquierdo: selección <br>Enter o espacio: selección<br>Fichas o WASD: Movimiento e
+                    intercambio
                 </p>
-                <button id="boton-bienvenida">A JUGAR!</button>
+                <button id="boton-bienvenida">¡A jugar!</button>
             </div>
         </div>
 
 
     </div>
--->
-    <div class="overlay">
 
 
-        <div class="contenedor-juego">
-            <div class="titulo">
-                <h1>MatcheADAs</h1>
-            </div>
-            <div class="contador"></div>
-
-            <div class="grilla"></div>
-            <div class="timer"></div>
+    <div class="contenedor-juego">
+        <div class="titulo">
+            <h1>MatcheADAs</h1>
         </div>
+        <div class="contador"></div>
 
+        <!-- <button id="facil" class="hidden">Fácil</button>
+            <button id="medio" class="hidden">Medio</button>
+            <button id="dificil" class="hidden">Difícil</button> -->
 
-
+        <div class="grilla"></div>
+        <div class="contenedor-timer">
+            <i class="fas fa-hourglass-half"></i>
+            <p id="segundos"></p>
+        </div>
+        <div id="fin-de-juego" class="texto-bienvenida hidden">
+            <h2>¡Juego terminado!</h2>
+            <p>Puntaje final:<span></span></p>
+            <div class="botones-finales"></div>
+            <button id="nuevo-juego">Nuevo juego</button>
+            <button id="reiniciar-juego">Reiniciar juego</button>
+        </div>
     </div>
-
 
     
     <script src="index.js"></script>
+
 </body>
 
 </html>
