@@ -5,6 +5,7 @@ const modalFinDeJuego = document.getElementById('fin-de-juego')
 const parrafoSegundos = document.getElementById("segundos")
 
 
+
 const grilla = document.querySelector(".grilla");
 // const botonFacil = document.getElementById("facil");
 // const botonMedio = document.getElementById("medio");
@@ -18,6 +19,7 @@ const nuevoJuego = document.getElementById("nuevo-juego");
 let items = ["🐷", "🐹", "🦊", "🐶", "🐴", "🐔", "🐷", "🐸", "🐤", "🐱"];  
 let listaDeAnimales = [];
 let animales = "";
+let matches =[]
 
 const obtenerNumeroAlAzar = (items) => {
   let largo = items.length;
@@ -200,6 +202,49 @@ const intercambiarCeldas = (celda1, celda2) => {
 
 }
 
+const chequearSiHayMatches = () => {
+  obtenerMatchesHorizontales()
+  obtenerMatchesVerticales ()
+}
+
+
+const obtenerMatchesHorizontales = () => {
+  for (let i = 0; i < listaDeAnimales.length; i++) {
+    for (let j = 0; j < listaDeAnimales[i]; j++) {
+      if (listaDeAnimales[i][j] === listaDeAnimales[i][j+1] && listaDeAnimales[i][j] === [i][j+2]) {
+        const primerCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j}']`)
+        const segundaCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j + 1}']`)
+        const tercerCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j + 2}']`)
+        
+        const hayMatch =[primerCeldaHorizontal, segundaCeldaHorizontal, tercerCeldaHorizontal]
+      }
+      
+  
+    }
+    
+  }
+}
+
+const obtenerMatchesVerticales = () => {
+
+  for (let i = 0; i < listaDeAnimales.length; i++) {
+    for (let j = 0; j < listaDeAnimales[i]; j++) {
+      if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && [i][j] === listaDeAnimales [i + 1][j] && listaDeAnimales [i + 1][j] ) {
+
+            const primerCeldaVertical = document.querySelector(`div[data-x = '${i}'][data-y = '${j}']`)
+            const segundaCeldaVertical = document.querySelector(`div[data-x = '${i+1}'][data-y = '${j}']`)
+            const tercerCeldaVertical = document.querySelector(`div[data-x = '${i+2}'][data-y = '${j}']`)
+
+        const hayMatch =  [primerCeldaVertical, segundaCeldaVertical, tercerCeldaVertical]
+         
+      }
+      
+  
+    }
+    
+  }
+
+}
 
 
 
