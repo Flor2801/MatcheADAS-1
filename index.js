@@ -238,14 +238,16 @@ const intercambiarCeldas = (celda1, celda2) => {
 botonBuscarMatches.onclick = () => {
   console.log ("boton")
   obtenerMatches()
-  // // obtenerCuadrado(listaDeAnimales)
-  // colorearCelda()
+  obtenerCuadrado(arr)
+  colorearCelda()
 }
 
-let matchesHorizontales = [];
-let matchesVerticales = [];
 
 const obtenerMatches = () => {
+
+  
+let matchesHorizontales = [];
+let matchesVerticales = [];
 
   for (let i = 0; i < listaDeAnimales.length; i++) {
     for (let j = 0; j < listaDeAnimales[i]; j++) {
@@ -278,8 +280,8 @@ const obtenerMatches = () => {
   
     }
 
-    const obtenerCuadrado = (listaDeAnimales) => {
-      return document.querySelector(`div[data-x='${listaDeAnimales[i]}'][data-y='${listaDeAnimales[j]}']`)
+    const obtenerCuadrado = (arr) => {
+      return document.querySelector(`div[data-x='${arr[i]}'][data-y='${arr[j]}']`)
     }
   
   
@@ -298,7 +300,7 @@ const obtenerMatches = () => {
       
     }
   }
-    
+
 }
 
  
