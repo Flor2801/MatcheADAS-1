@@ -3,6 +3,7 @@ const modalBienvenida = document.getElementById('modal-inicial')
 const botonBienvenida = document.getElementById('boton-bienvenida')
 const modalFinDeJuego = document.getElementById('fin-de-juego')
 const parrafoSegundos = document.getElementById("segundos")
+const botonBuscarMatches = document.getElementById ("buscar-matches")
 
 
 
@@ -39,6 +40,32 @@ const crearGrilla = (ancho, alto) => {
   }
   return listaDeAnimales
 };
+ 
+// ==========> busco matches iniciales para que la grilla no empiece con matches! 
+const buscarMatchesInicial = () => {
+  for (let i=0; i <listaDeAnimales.length; i++) {
+    for (let j = 0; j < listaDeAnimales[i].length; j++) {
+      if (listaDeAnimales[i][j] === listaDeAnimales[i][j+1] && listaDeAnimales[i][j] === listaDeAnimales[i][j+2]){
+        return true
+      }
+
+      if (listaDeAnimales[i+1] && listaDeAnimales[1+2] && listaDeAnimales[i][j] === listaDeAnimales[i+1][j] && listaDeAnimales[i+1][j]  === listaDeAnimales [i+2][j] ) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
+
+do {
+  listaDeAnimales = crearGrilla (10)
+}
+while 
+ ( buscarMatchesInicial() === true){
+
+ }
+
 
 
 const generarCelda = (x, y, array) => {
@@ -202,7 +229,9 @@ const intercambiarCeldas = (celda1, celda2) => {
 
 }
 
-const chequearSiHayMatches = () => {
+// ==================>>>> RECORRO MATCHES Y LES ASIGNO COLOR.
+
+botonBuscarMatches.onclick = () => {
   obtenerMatchesHorizontales()
   obtenerMatchesVerticales ()
 }
@@ -216,7 +245,11 @@ const obtenerMatchesHorizontales = () => {
         const segundaCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j + 1}']`)
         const tercerCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j + 2}']`)
         
-        const hayMatch =[primerCeldaHorizontal, segundaCeldaHorizontal, tercerCeldaHorizontal]
+        primerCeldaHorizontal.style.backgroundcolor ='#b371f1'
+        segundaCeldaHorizontal.style.backgroundcolor ='#b371f1'
+        tercerCeldaHorizontal.style.backgroundcolor ='#b371f1'
+        
+
       }
       
   
@@ -235,7 +268,10 @@ const obtenerMatchesVerticales = () => {
             const segundaCeldaVertical = document.querySelector(`div[data-x = '${i+1}'][data-y = '${j}']`)
             const tercerCeldaVertical = document.querySelector(`div[data-x = '${i+2}'][data-y = '${j}']`)
 
-        const hayMatch =  [primerCeldaVertical, segundaCeldaVertical, tercerCeldaVertical]
+            primerCeldaVertical.style.backgroundcolor ='#5454f1'
+            segundaCeldaVertical.style.backgroundcolor ='#5454f1'
+            tercerCeldaVertical.style.backgroundcolor ='#5454f1'
+            
          
       }
       
