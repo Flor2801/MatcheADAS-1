@@ -19,6 +19,7 @@ const nuevoJuego = document.getElementById("nuevo-juego");
 
 let items = ["🐷", "🐹", "🦊", "🐶", "🐴", "🐔", "🐷", "🐸", "🐤", "🐱"];  
 let listaDeAnimales = [];
+
 let animales = "";
 let matches =[]
 
@@ -32,6 +33,7 @@ const obtenerAnimalAlAzar = (items) => {
 
 const crearGrilla = (ancho, alto) => {
 
+  console.log (listaDeAnimales)
   for (let i = 0; i < ancho; i++) {
     listaDeAnimales[i] = [];
     for (let j = 0; j < alto; j++) {
@@ -49,7 +51,8 @@ const buscarMatchesInicial = () => {
         return true
       }
 
-      if (listaDeAnimales[i+1] && listaDeAnimales[1+2] && listaDeAnimales[i][j] === listaDeAnimales[i+1][j] && listaDeAnimales[i+1][j]  === listaDeAnimales [i+2][j] ) {
+      if (listaDeAnimales[i] && listaDeAnimales[i+1] && listaDeAnimales [i+2] && 
+        listaDeAnimales[i+1][j] && listaDeAnimales[i+2][j] && listaDeAnimales[i][j] === listaDeAnimales[i+1][j] && listaDeAnimales[i+1][j]  === listaDeAnimales [i+2][j] ) {
         return true
       }
     }
@@ -58,13 +61,7 @@ const buscarMatchesInicial = () => {
 }
 
 
-do {
-  listaDeAnimales = crearGrilla (10)
-}
-while 
- ( buscarMatchesInicial() === true){
 
- }
 
 
 
@@ -94,7 +91,14 @@ const agregarGrillaAHTML = (ancho) => {
 }
 
 const iniciarJuego = () => {
-  crearGrilla(6, 6)
+
+  do {
+    listaDeAnimales = crearGrilla (6,6)
+  }
+  while 
+   ( buscarMatchesInicial() === true){
+  
+   }
   agregarGrillaAHTML(6)
   parrafoSegundos.textContent= "0 : 30"
   let limiteDeTiempo = new Date()
@@ -232,55 +236,96 @@ const intercambiarCeldas = (celda1, celda2) => {
 // ==================>>>> RECORRO MATCHES Y LES ASIGNO COLOR.
 
 botonBuscarMatches.onclick = () => {
-  obtenerMatchesHorizontales()
-  obtenerMatchesVerticales ()
+  console.log ("boton")
+  obtenerMatches()
+  // // obtenerCuadrado(listaDeAnimales)
+  // colorearCelda()
 }
 
+let matchesHorizontales = [];
+let matchesVerticales = [];
 
-const obtenerMatchesHorizontales = () => {
+const obtenerMatches = () => {
+
   for (let i = 0; i < listaDeAnimales.length; i++) {
     for (let j = 0; j < listaDeAnimales[i]; j++) {
       if (listaDeAnimales[i][j] === listaDeAnimales[i][j+1] && listaDeAnimales[i][j] === [i][j+2]) {
-        const primerCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j}']`)
-        const segundaCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j + 1}']`)
-        const tercerCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j + 2}']`)
+
+        matchesHorizontales.push([i, j])
+        matchesHorizontales.push([i, j+1])
+        matchesHorizontales.push([i, j+2])
+      
+      }
+
+        if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && [i][j] === listaDeAnimales [i + 1][j] && listaDeAnimales [i + 1][j] ) {
+
+          matchesVerticales.push([i, j])
+          matchesVerticales.push([i+1, j])
+          matchesVerticales.push([i+2, j])
+
+        // const primerCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j}']`)
+        // const segundaCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j + 1}']`)
+        // const tercerCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j + 2}']`)
         
-        primerCeldaHorizontal.style.backgroundcolor ='#b371f1'
-        segundaCeldaHorizontal.style.backgroundcolor ='#b371f1'
-        tercerCeldaHorizontal.style.backgroundcolor ='#b371f1'
+        // primerCeldaHorizontal.style.backgroundcolor ='#b371f1'
+        // segundaCeldaHorizontal.style.backgroundcolor ='#b371f1'
+        // tercerCeldaHorizontal.style.backgroundcolor ='#b371f1'
         
 
       }
-      
+      console.log (matchesHorizontales)
+      console.log (matchesVerticales)
   
     }
-    
+
+    const obtenerCuadrado = (listaDeAnimales) => {
+      return document.querySelector(`div[data-x='${listaDeAnimales[i]}'][data-y='${listaDeAnimales[j]}']`)
+    }
+  
+  
+    const colorearCelda = (celda, color ) => {
+      celda.style.backgroundcolor = color
+  
+    }
+  
+    for (let i = 0; i < matchesHorizontales.length; i++) {
+      const celda = obtenerCuadrado(matchesHorizontales[i]) 
+      colorearCelda(celda, "yellow")
+    }
+    for (let i = 0; i < matchesVerticales.length; i++) {
+      const celda = obtenerCuadrado(matchesVerticales[i]) 
+      colorearCelda(celda, "orange")
+      
+    }
   }
+    
 }
 
-const obtenerMatchesVerticales = () => {
+ 
 
-  for (let i = 0; i < listaDeAnimales.length; i++) {
-    for (let j = 0; j < listaDeAnimales[i]; j++) {
-      if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && [i][j] === listaDeAnimales [i + 1][j] && listaDeAnimales [i + 1][j] ) {
+// const obtenerMatchesVerticales = () => {
 
-            const primerCeldaVertical = document.querySelector(`div[data-x = '${i}'][data-y = '${j}']`)
-            const segundaCeldaVertical = document.querySelector(`div[data-x = '${i+1}'][data-y = '${j}']`)
-            const tercerCeldaVertical = document.querySelector(`div[data-x = '${i+2}'][data-y = '${j}']`)
+//   for (let i = 0; i < listaDeAnimales.length; i++) {
+//     for (let j = 0; j < listaDeAnimales[i]; j++) {
+     
 
-            primerCeldaVertical.style.backgroundcolor ='#5454f1'
-            segundaCeldaVertical.style.backgroundcolor ='#5454f1'
-            tercerCeldaVertical.style.backgroundcolor ='#5454f1'
+//             // const primerCeldaVertical = document.querySelector(`div[data-x = '${i}'][data-y = '${j}']`)
+//             // const segundaCeldaVertical = document.querySelector(`div[data-x = '${i+1}'][data-y = '${j}']`)
+//             // const tercerCeldaVertical = document.querySelector(`div[data-x = '${i+2}'][data-y = '${j}']`)
+
+//             // primerCeldaVertical.style.backgroundcolor ='#5454f1'
+//             // segundaCeldaVertical.style.backgroundcolor ='#5454f1'
+//             // tercerCeldaVertical.style.backgroundcolor ='#5454f1'
             
          
-      }
+//       }
       
   
-    }
+//     }
     
-  }
+//   }
 
-}
+// }
 
 
 
