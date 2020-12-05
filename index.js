@@ -14,6 +14,18 @@ const grilla = document.querySelector(".grilla");
 const nuevoJuego = document.getElementById("nuevo-juego");
 // const reiniciarJuego = document.getElementById("reiniciar-juego");
 
+const botonInfo = document.querySelector(".info")
+
+
+
+botonInfo.onclick = () => {
+  modalBienvenida.classList.remove('hidden')
+  overlay.classList.remove('hidden')
+  iniciarJuego();
+}
+
+
+
 
 // Grilla
 

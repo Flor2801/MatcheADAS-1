@@ -37,6 +37,10 @@ body {
     background-color: rgba(2, 248, 146, 0.863);
     border-radius: 10px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
 }
 
 .titulo {
@@ -69,8 +73,6 @@ body {
   
 }
  
-
-
 
 .bienvenida {
     position: absolute;
@@ -184,7 +186,14 @@ h1 {
     margin-top: 20px;
     font-family: Montserrat, sans-serif;
 }
-
+ 
+.info {
+    font-size: 20px;
+    cursor: pointer;
+    color: #fafafa;
+    border: 0;
+    background-color: transparent;
+}
 
 
 .hidden {
