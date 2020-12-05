@@ -235,12 +235,6 @@ const intercambiarCeldas = (celda1, celda2) => {
 
 // ==================>>>> RECORRO MATCHES Y LES ASIGNO COLOR.
 
-botonBuscarMatches.onclick = () => {
-  console.log ("boton")
-  obtenerMatches()
-  obtenerCuadrado(arr)
-  colorearCelda()
-}
 
 
 const obtenerMatches = () => {
@@ -249,18 +243,23 @@ const obtenerMatches = () => {
 let matchesHorizontales = [];
 let matchesVerticales = [];
 
-  for (let i = 0; i < listaDeAnimales.length; i++) {
-    for (let j = 0; j < listaDeAnimales[i]; j++) {
-      if (listaDeAnimales[i][j] === listaDeAnimales[i][j+1] && listaDeAnimales[i][j] === [i][j+2]) {
+console.log(listaDeAnimales)
 
+
+  for (let i = 0; i < listaDeAnimales.length; i++) {
+    console.log ("fgjkndgkj")
+    for (let j = 0; j < listaDeAnimales[i].length; j++) {
+      console.log ("segundo for")
+      if (listaDeAnimales[i][j] === listaDeAnimales[i][j+1] && listaDeAnimales[i][j] === [i][j+2]) {
+console.log ("gf")
         matchesHorizontales.push([i, j])
         matchesHorizontales.push([i, j+1])
         matchesHorizontales.push([i, j+2])
       
       }
 
-        if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && [i][j] === listaDeAnimales [i + 1][j] && listaDeAnimales [i + 1][j] ) {
-
+        if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales [i + 1][j] && listaDeAnimales [i + 1][j] === listaDeAnimales [i+2][j] ) {
+          console.log ("hggfhf")
           matchesVerticales.push([i, j])
           matchesVerticales.push([i+1, j])
           matchesVerticales.push([i+2, j])
@@ -275,32 +274,46 @@ let matchesVerticales = [];
         
 
       }
-      console.log (matchesHorizontales)
-      console.log (matchesVerticales)
+      
   
     }
+   
+  }
+  
 
     const obtenerCuadrado = (arr) => {
-      return document.querySelector(`div[data-x='${arr[i]}'][data-y='${arr[j]}']`)
+      return document.querySelector(`div[data-x='${arr[0]}'][data-y='${arr[1]}']`)
     }
   
   
     const colorearCelda = (celda, color ) => {
       celda.style.backgroundcolor = color
-  
+      console.log ("colorearCelda")
     }
+
+    console.log (matchesHorizontales)
+    console.log (matchesVerticales)
   
     for (let i = 0; i < matchesHorizontales.length; i++) {
-      const celda = obtenerCuadrado(matchesHorizontales[i]) 
+      console.log ("for del match horizontal")
+      const celda = obtenerCuadrado(matchesHorizontales) 
       colorearCelda(celda, "yellow")
     }
     for (let i = 0; i < matchesVerticales.length; i++) {
-      const celda = obtenerCuadrado(matchesVerticales[i]) 
+      const celda = obtenerCuadrado(matchesVerticales) 
       colorearCelda(celda, "orange")
       
     }
+
   }
 
+
+
+botonBuscarMatches.onclick = () => {
+  console.log ("boton")
+  obtenerMatches()
+  
+  
 }
 
  
