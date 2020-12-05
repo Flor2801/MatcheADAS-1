@@ -25,9 +25,9 @@ botonInfo.onclick = () => {
 }
 
 botonReiniciar.onclick = () => {
+  
   iniciarJuego();
 }
-
 
 
 // Grilla
