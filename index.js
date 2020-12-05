@@ -250,7 +250,7 @@ console.log(listaDeAnimales)
     console.log ("fgjkndgkj")
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
       console.log ("segundo for")
-      if (listaDeAnimales[i][j] === listaDeAnimales[i][j+1] && listaDeAnimales[i][j] === [i][j+2]) {
+      if (listaDeAnimales[i][j] === listaDeAnimales[i][j+1] && listaDeAnimales[i][j] === listaDeAnimales[i][j+2]) {
 console.log ("gf")
         matchesHorizontales.push([i, j])
         matchesHorizontales.push([i, j+1])
@@ -262,20 +262,10 @@ console.log ("gf")
           console.log ("hggfhf")
           matchesVerticales.push([i, j])
           matchesVerticales.push([i+1, j])
-          matchesVerticales.push([i+2, j])
-
-        // const primerCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j}']`)
-        // const segundaCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j + 1}']`)
-        // const tercerCeldaHorizontal = document.querySelector(`div[data-x = '${i}'][data-y = '${j + 2}']`)
-        
-        // primerCeldaHorizontal.style.backgroundcolor ='#b371f1'
-        // segundaCeldaHorizontal.style.backgroundcolor ='#b371f1'
-        // tercerCeldaHorizontal.style.backgroundcolor ='#b371f1'
-        
-
-      }
+          matchesVerticales.push([i+2, j])      
       
-  
+        }
+        
     }
    
   }
@@ -287,7 +277,7 @@ console.log ("gf")
   
   
     const colorearCelda = (celda, color ) => {
-      celda.style.backgroundcolor = color
+      celda.style.backgroundColor = color
       console.log ("colorearCelda")
     }
 
@@ -296,11 +286,11 @@ console.log ("gf")
   
     for (let i = 0; i < matchesHorizontales.length; i++) {
       console.log ("for del match horizontal")
-      const celda = obtenerCuadrado(matchesHorizontales) 
+      const celda = obtenerCuadrado(matchesHorizontales[i]) 
       colorearCelda(celda, "yellow")
     }
     for (let i = 0; i < matchesVerticales.length; i++) {
-      const celda = obtenerCuadrado(matchesVerticales) 
+      const celda = obtenerCuadrado(matchesVerticales[i]) 
       colorearCelda(celda, "orange")
       
     }
