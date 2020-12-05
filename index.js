@@ -26,7 +26,6 @@ botonInfo.onclick = () => {
 
 botonReiniciar.onclick = () => {
   iniciarJuego();
-  comenzarCuentaRegresiva(limiteDeTiempo);
 }
 
 
