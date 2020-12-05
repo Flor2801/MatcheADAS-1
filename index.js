@@ -15,7 +15,7 @@ const nuevoJuego = document.getElementById("nuevo-juego");
 // const reiniciarJuego = document.getElementById("reiniciar-juego");
 
 const botonInfo = document.querySelector(".info")
-
+const botonReiniciar = document.querySelector(".reiniciar")
 
 
 botonInfo.onclick = () => {
@@ -24,6 +24,9 @@ botonInfo.onclick = () => {
   iniciarJuego();
 }
 
+botonReiniciar.onclick = () => {
+  iniciarJuego();
+}
 
 
 
