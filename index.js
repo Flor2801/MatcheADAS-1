@@ -17,6 +17,8 @@ const nuevoJuego = document.getElementById("nuevo-juego");
 const botonInfo = document.querySelector(".info")
 const botonReiniciar = document.querySelector(".reiniciar")
 
+let actualizadorDeTiempo = null
+
 
 botonInfo.onclick = () => {
   modalBienvenida.classList.remove('hidden')
@@ -106,6 +108,7 @@ const agregarGrillaAHTML = (ancho) => {
 }
 
 const iniciarJuego = () => {
+  actualizadorDeTiempo && clearInterval(actualizadorDeTiempo)
 
   do {
     listaDeAnimales = crearGrilla (6,6)
@@ -157,11 +160,11 @@ const obtenerTiempoFaltante = (limiteDeTiempo) => {
 
 }
 
-const comenzarCuentaRegresiva=(limiteDeTiempo)=>{
+const comenzarCuentaRegresiva = (limiteDeTiempo) => {
 //setInterval ejecuta una función (esta funcion obtiene el tiempo restante en cada 
 //momento y lo inserta en el p) o un fragmento de código de forma repetitiva 
 //cada vez que termina el periodo de tiempo determinado (1000 milisegundos).
-  const actualizadorDeTiempo = setInterval(()=>{
+  actualizadorDeTiempo = setInterval(()=>{
 
     let segundos=obtenerTiempoFaltante(limiteDeTiempo)
     parrafoSegundos.textContent= "0 : " + segundos
