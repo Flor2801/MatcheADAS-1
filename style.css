@@ -31,10 +31,6 @@ body {
     margin-top: 0px;
 }
 
-#segundos {
-    font-family: Montserrat, sans-serif;
-}
-
 .contador {
     width: 350px;
     height: 50px;
@@ -42,12 +38,12 @@ body {
     border-radius: 10px;
     margin-bottom: 10px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-around;
     align-items: center;
 
 }
 
-#boton-bienvenida {
+#boton-bienvenida, #segundos {
     font-family: Montserrat, sans-serif;
 }
 
@@ -75,9 +71,20 @@ body {
     
 }
 
-.fa-hourglass-half{
+.fa-hourglass-half {
     position:absolute;
     left: 30px;
+    font-size: 20px;
+}
+
+.contenedor-botones {
+
+}
+
+.puntos {
+    color: #fafafa;
+    font-family: Montserrat, sans-serif;
+    font-family: 'Pacifico', cursive;
     font-size: 20px;
 }
  
