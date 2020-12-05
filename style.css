@@ -31,6 +31,10 @@ body {
     margin-top: 0px;
 }
 
+#segundos {
+    font-family: Montserrat, sans-serif;
+}
+
 .contador {
     width: 350px;
     height: 50px;
@@ -41,6 +45,10 @@ body {
     justify-content: flex-end;
     align-items: center;
 
+}
+
+#boton-bienvenida {
+    font-family: Montserrat, sans-serif;
 }
 
 .titulo {
@@ -69,8 +77,8 @@ body {
 
 .fa-hourglass-half{
     position:absolute;
-    left: 10px;
-  
+    left: 30px;
+    font-size: 20px;
 }
  
 
