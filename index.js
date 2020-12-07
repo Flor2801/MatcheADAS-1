@@ -59,10 +59,6 @@ const obtenerAnimalAlAzar = (items) => {
 };
 
 const crearGrilla = (ancho, alto) => {
-<<<<<<< HEAD
-
-=======
->>>>>>> Puntaje
   for (let i = 0; i < ancho; i++) {
     listaDeAnimales[i] = [];
     for (let j = 0; j < alto; j++) {
@@ -134,11 +130,6 @@ nuevoJuego.onclick = () => {
   iniciarJuego()
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden')
-<<<<<<< HEAD
-=======
-  inicializarContador()
-
->>>>>>> Puntaje
 }
 
 botonBienvenida.onclick = () => {
@@ -147,13 +138,6 @@ botonBienvenida.onclick = () => {
   iniciarJuego();
 }
 
-<<<<<<< HEAD
-const mostrarModalFinDeJuego = () => {
-  modalFinDeJuego.classList.remove("hidden")
-  overlay.classList.remove('hidden')
-}
-=======
->>>>>>> Puntaje
 
 //Timer
 
@@ -284,14 +268,10 @@ const reacomodarFilas = (matches) => {
       descenderCelda(celdaADescender)
     }
   }
-<<<<<<< HEAD
 }    
 
 
 const nuevoItem = () => {
-=======
-}
->>>>>>> Puntaje
 
 }
 
@@ -313,13 +293,10 @@ const obtenerMatches = () => {
         matchesHorizontales.push([i, j])
         matchesHorizontales.push([i, j + 1])
         matchesHorizontales.push([i, j + 2])
-<<<<<<< HEAD
-=======
 
         matchesAcumuladosHorizontales += 1
 
 
->>>>>>> Puntaje
       }
 
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
@@ -327,14 +304,10 @@ const obtenerMatches = () => {
         matchesVerticales.push([i, j])
         matchesVerticales.push([i + 1, j])
         matchesVerticales.push([i + 2, j])
-<<<<<<< HEAD
-      }
-=======
 
         matchesAcumuladosVerticales += 1
 
       }  
->>>>>>> Puntaje
     }
   }
 
@@ -354,13 +327,6 @@ const obtenerMatches = () => {
   for (let i = 0; i < matchesVerticales.length; i++) {
     const celda = obtenerCuadrado(matchesVerticales[i])
     desaparecerAnimal(celda)
-<<<<<<< HEAD
-  }
-
-  deseleccionarItem()
-  reacomodarFilas(matchesHorizontales)
-  
-=======
 
   }
 
@@ -382,7 +348,6 @@ const obtenerMatches = () => {
   deseleccionarItem()
   reacomodarFilas(matchesHorizontales)
   reacomodarFilas(matchesVerticales)
->>>>>>> Puntaje
 }
 
 const inicializarContador = () => {
@@ -391,17 +356,7 @@ const inicializarContador = () => {
   return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
 }
 
-<<<<<<< HEAD
 // const obtenerMatchesVerticales = () => {
-=======
-const mostrarModalFinDeJuego = () => {
-  modalFinDeJuego.classList.remove("hidden")
-  overlay.classList.remove('hidden')
-  puntajeFinal.innerHTML = puntajeVertical + puntajeHorizontal
-}
-
-
->>>>>>> Puntaje
 
 
 
