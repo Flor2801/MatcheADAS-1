@@ -6,6 +6,7 @@ const parrafoSegundos = document.getElementById("segundos")
 const botonBuscarMatches = document.getElementById("buscar-matches")
 const reiniciarJuego = document.getElementById("reiniciar-juego")
 const puntaje = document.getElementById("puntaje")
+const puntajeFinal = document.getElementById("puntaje-final")
 
 
 
@@ -144,10 +145,7 @@ botonBienvenida.onclick = () => {
   iniciarJuego();
 }
 
-const mostrarModalFinDeJuego = () => {
-  modalFinDeJuego.classList.remove("hidden")
-  overlay.classList.remove('hidden')
-}
+
 //Timer
 
 const obtenerTiempoFaltante = (limiteDeTiempo) => {
@@ -178,6 +176,7 @@ const comenzarCuentaRegresiva = (limiteDeTiempo) => {
       //(actualizadorDeTiempo) es el identificador de la acción reiterativa que se desea cancelar.
       clearInterval(actualizadorDeTiempo)
       mostrarModalFinDeJuego()
+    
     }
 
   }, 1000)
@@ -356,15 +355,13 @@ const obtenerMatches = () => {
     for (let i = 0; i < matchesAcumuladosHorizontales; i++) {
     puntajeHorizontal += 100
     }
-
     return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
     }
-    
+
   puntosTotales()
   deseleccionarItem()
   reacomodarFilas(matchesHorizontales)
   reacomodarFilas(matchesVerticales)
-  
 }
 
 const inicializarContador = () => {
@@ -373,65 +370,50 @@ const inicializarContador = () => {
   return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
 }
 
+const mostrarModalFinDeJuego = () => {
+  modalFinDeJuego.classList.remove("hidden")
+  overlay.classList.remove('hidden')
+  puntajeFinal.innerHTML = puntajeVertical + puntajeHorizontal
+}
+
+
+
 
 
 /*
-
 // const obtenerMatchesVerticales = () => {
-
 //   for (let i = 0; i < listaDeAnimales.length; i++) {
 //     for (let j = 0; j < listaDeAnimales[i]; j++) {
-
-
 //             // const primerCeldaVertical = document.querySelector(`div[data-x = '${i}'][data-y = '${j}']`)
 //             // const segundaCeldaVertical = document.querySelector(`div[data-x = '${i+1}'][data-y = '${j}']`)
 //             // const tercerCeldaVertical = document.querySelector(`div[data-x = '${i+2}'][data-y = '${j}']`)
-
 //             // primerCeldaVertical.style.backgroundcolor ='#5454f1'
 //             // segundaCeldaVertical.style.backgroundcolor ='#5454f1'
 //             // tercerCeldaVertical.style.backgroundcolor ='#5454f1'
-
-
 //       }
-
-
 //     }
-
 //   }
-
 // }
-
-
-
-
-
-
-
-
 // const ocultarBotones = () => {
 //     botonFacil.classList.add("ocultar");
 //     botonMedio.classList.add("ocultar");
 //     botonDificil.classList.add("ocultar");
 // };
-
 // botonFacil.onclick = () => {
 //     crearGrilla(6, 6);
 //     ocultarBotones();
 //     reiniciarJuego.classList.add("facil");
 // };
-
 // botonMedio.onclick = () => {
 //     crearGrilla(8, 8);
 //     ocultarBotones();
 //     reiniciarJuego.classList.add("medio");
 // };
-
 // botonDificil.onclick = () => {
 //     crearGrilla(10, 10);
 //     ocultarBotones();
 //     reiniciarJuego.classList.add("dificil");
 // };
-
 // nuevoJuego.onclick = () => {
 //     botonFacil.classList.toggle("ocultar");
 //     botonMedio.classList.toggle("ocultar");
@@ -440,9 +422,6 @@ const inicializarContador = () => {
 //     reiniciarJuego.classList.remove("medio");
 //     reiniciarJuego.classList.remove("dificil");
 // };
-
-
-
 // reiniciarJuego.onclick = () => {
 //   if (reiniciarJuego.classList.contains("facil")) {
 //     crearGrilla(6, 6);
