@@ -5,6 +5,9 @@ const modalFinDeJuego = document.getElementById('fin-de-juego')
 const parrafoSegundos = document.getElementById("segundos")
 const botonBuscarMatches = document.getElementById("buscar-matches")
 const reiniciarJuego = document.getElementById("reiniciar-juego")
+const puntaje = document.getElementById("puntaje")
+const puntajeFinal = document.getElementById("puntaje-final")
+
 
 
 const grilla = document.querySelector(".grilla");
@@ -27,7 +30,6 @@ botonInfo.onclick = () => {
 }
 
 botonReiniciar.onclick = () => {
-
   iniciarJuego();
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden')
@@ -57,7 +59,10 @@ const obtenerAnimalAlAzar = (items) => {
 };
 
 const crearGrilla = (ancho, alto) => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> Puntaje
   for (let i = 0; i < ancho; i++) {
     listaDeAnimales[i] = [];
     for (let j = 0; j < alto; j++) {
@@ -122,12 +127,18 @@ const iniciarJuego = () => {
   let limiteDeTiempo = new Date()
   limiteDeTiempo.setSeconds(limiteDeTiempo.getSeconds() + 30)
   comenzarCuentaRegresiva(limiteDeTiempo)
+  inicializarContador()
 }
 
 nuevoJuego.onclick = () => {
   iniciarJuego()
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden')
+<<<<<<< HEAD
+=======
+  inicializarContador()
+
+>>>>>>> Puntaje
 }
 
 botonBienvenida.onclick = () => {
@@ -136,10 +147,13 @@ botonBienvenida.onclick = () => {
   iniciarJuego();
 }
 
+<<<<<<< HEAD
 const mostrarModalFinDeJuego = () => {
   modalFinDeJuego.classList.remove("hidden")
   overlay.classList.remove('hidden')
 }
+=======
+>>>>>>> Puntaje
 
 //Timer
 
@@ -169,6 +183,7 @@ const comenzarCuentaRegresiva = (limiteDeTiempo) => {
       //(actualizadorDeTiempo) es el identificador de la acción reiterativa que se desea cancelar.
       clearInterval(actualizadorDeTiempo)
       mostrarModalFinDeJuego()
+    
     }
   }, 1000)
 
@@ -261,18 +276,22 @@ const descenderCelda = (celda) => {
   celda.dataset.x = x + 1
 }
 
-const reacomodarFilas = (matchesHorizontales) => {
-  for (let i = 0; i < matchesHorizontales.length; i++) {
-    let numeroDeDescensos = matchesHorizontales[i][0]
+const reacomodarFilas = (matches) => {
+  for (let i = 0; i < matches.length; i++) {
+    let numeroDeDescensos = matches[i][0]
     for (let j = 0; j < numeroDeDescensos; j++) {
       let celdaADescender = document.querySelector(`div[data-x='${j}'][data-y='${matchesHorizontales[i][1]}']`)
       descenderCelda(celdaADescender)
     }
   }
+<<<<<<< HEAD
 }    
 
 
 const nuevoItem = () => {
+=======
+}
+>>>>>>> Puntaje
 
 }
 
@@ -283,6 +302,8 @@ const obtenerMatches = () => {
 
   let matchesHorizontales = [];
   let matchesVerticales = [];
+  let matchesAcumuladosHorizontales = 0
+  let matchesAcumuladosVerticales = 0
 
   for (let i = 0; i < listaDeAnimales.length; i++) {
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
@@ -292,6 +313,13 @@ const obtenerMatches = () => {
         matchesHorizontales.push([i, j])
         matchesHorizontales.push([i, j + 1])
         matchesHorizontales.push([i, j + 2])
+<<<<<<< HEAD
+=======
+
+        matchesAcumuladosHorizontales += 1
+
+
+>>>>>>> Puntaje
       }
 
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
@@ -299,9 +327,17 @@ const obtenerMatches = () => {
         matchesVerticales.push([i, j])
         matchesVerticales.push([i + 1, j])
         matchesVerticales.push([i + 2, j])
+<<<<<<< HEAD
       }
+=======
+
+        matchesAcumuladosVerticales += 1
+
+      }  
+>>>>>>> Puntaje
     }
   }
+
 
   const obtenerCuadrado = (arr) => {
     return document.querySelector(`div[data-x='${arr[0]}'][data-y='${arr[1]}']`)
@@ -318,24 +354,64 @@ const obtenerMatches = () => {
   for (let i = 0; i < matchesVerticales.length; i++) {
     const celda = obtenerCuadrado(matchesVerticales[i])
     desaparecerAnimal(celda)
+<<<<<<< HEAD
   }
 
   deseleccionarItem()
   reacomodarFilas(matchesHorizontales)
   
+=======
+
+  }
+
+  const puntosTotales = () => {
+    let puntajeVertical = 0
+    let puntajeHorizontal = 0
+
+    for (let i = 0; i < matchesAcumuladosVerticales; i++) {
+    puntajeVertical += 100
+    }
+
+    for (let i = 0; i < matchesAcumuladosHorizontales; i++) {
+    puntajeHorizontal += 100
+    }
+    return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+    }
+
+  puntosTotales()
+  deseleccionarItem()
+  reacomodarFilas(matchesHorizontales)
+  reacomodarFilas(matchesVerticales)
+>>>>>>> Puntaje
+}
+
+const inicializarContador = () => {
+  puntajeVertical = 0
+  puntajeHorizontal = 0
+  return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+}
+
+<<<<<<< HEAD
+// const obtenerMatchesVerticales = () => {
+=======
+const mostrarModalFinDeJuego = () => {
+  modalFinDeJuego.classList.remove("hidden")
+  overlay.classList.remove('hidden')
+  puntajeFinal.innerHTML = puntajeVertical + puntajeHorizontal
 }
 
 
-// const obtenerMatchesVerticales = () => {
+>>>>>>> Puntaje
 
+
+
+/*
+// const obtenerMatchesVerticales = () => {
 //   for (let i = 0; i < listaDeAnimales.length; i++) {
 //     for (let j = 0; j < listaDeAnimales[i]; j++) {
-
-
 //             // const primerCeldaVertical = document.querySelector(`div[data-x = '${i}'][data-y = '${j}']`)
 //             // const segundaCeldaVertical = document.querySelector(`div[data-x = '${i+1}'][data-y = '${j}']`)
 //             // const tercerCeldaVertical = document.querySelector(`div[data-x = '${i+2}'][data-y = '${j}']`)
-
 //             // primerCeldaVertical.style.backgroundcolor ='#5454f1'
 //             // segundaCeldaVertical.style.backgroundcolor ='#5454f1'
 //             // tercerCeldaVertical.style.backgroundcolor ='#5454f1'
@@ -343,32 +419,31 @@ const obtenerMatches = () => {
 //     }
 //   }
 // }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> Puntaje
 // const ocultarBotones = () => {
 //     botonFacil.classList.add("ocultar");
 //     botonMedio.classList.add("ocultar");
 //     botonDificil.classList.add("ocultar");
 // };
-
 // botonFacil.onclick = () => {
 //     crearGrilla(6, 6);
 //     ocultarBotones();
 //     reiniciarJuego.classList.add("facil");
 // };
-
 // botonMedio.onclick = () => {
 //     crearGrilla(8, 8);
 //     ocultarBotones();
 //     reiniciarJuego.classList.add("medio");
 // };
-
 // botonDificil.onclick = () => {
 //     crearGrilla(10, 10);
 //     ocultarBotones();
 //     reiniciarJuego.classList.add("dificil");
 // };
-
 // nuevoJuego.onclick = () => {
 //     botonFacil.classList.toggle("ocultar");
 //     botonMedio.classList.toggle("ocultar");
@@ -377,7 +452,10 @@ const obtenerMatches = () => {
 //     reiniciarJuego.classList.remove("medio");
 //     reiniciarJuego.classList.remove("dificil");
 // };
+<<<<<<< HEAD
 
+=======
+>>>>>>> Puntaje
 // reiniciarJuego.onclick = () => {
 //   if (reiniciarJuego.classList.contains("facil")) {
 //     crearGrilla(6, 6);
@@ -387,5 +465,5 @@ const obtenerMatches = () => {
 //     crearGrilla(10, 10);
 //   }
 // }
-
-
+}
+*/
