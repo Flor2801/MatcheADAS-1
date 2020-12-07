@@ -30,6 +30,8 @@ botonInfo.onclick = () => {
 botonReiniciar.onclick = () => {
 
   iniciarJuego();
+  modalFinDeJuego.classList.add("hidden")
+  overlay.classList.add('hidden')
 }
 
 reiniciarJuego.onclick = () => {
