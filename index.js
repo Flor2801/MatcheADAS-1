@@ -5,6 +5,8 @@ const modalFinDeJuego = document.getElementById('fin-de-juego')
 const parrafoSegundos = document.getElementById("segundos")
 const botonBuscarMatches = document.getElementById("buscar-matches")
 const reiniciarJuego = document.getElementById("reiniciar-juego")
+const puntaje = document.getElementById("puntaje")
+
 
 
 
@@ -28,7 +30,6 @@ botonInfo.onclick = () => {
 }
 
 botonReiniciar.onclick = () => {
-
   iniciarJuego();
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden')
@@ -58,8 +59,6 @@ const obtenerAnimalAlAzar = (items) => {
 };
 
 const crearGrilla = (ancho, alto) => {
-
-  console.log(listaDeAnimales)
   for (let i = 0; i < ancho; i++) {
     listaDeAnimales[i] = [];
     for (let j = 0; j < alto; j++) {
@@ -127,29 +126,27 @@ const iniciarJuego = () => {
   parrafoSegundos.textContent = "0 : 30"
   let limiteDeTiempo = new Date()
   limiteDeTiempo.setSeconds(limiteDeTiempo.getSeconds() + 30)
-
   comenzarCuentaRegresiva(limiteDeTiempo)
+  inicializarContador()
 }
 
 nuevoJuego.onclick = () => {
   iniciarJuego()
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden')
+  inicializarContador()
 
 }
-
 
 botonBienvenida.onclick = () => {
   modalBienvenida.classList.add('hidden')
   overlay.classList.add('hidden')
   iniciarJuego();
-
 }
 
 const mostrarModalFinDeJuego = () => {
   modalFinDeJuego.classList.remove("hidden")
   overlay.classList.remove('hidden')
-
 }
 //Timer
 
@@ -277,22 +274,16 @@ const descenderCelda = (celda) => {
   celda.style.top = `${(x * tamanio) + 50}px`
 
   celda.dataset.x = x + 1
-
-
 }
 
-const reacomodarFilas = (matchesHorizontales) => {
-  for (let i = 0; i < matchesHorizontales.length; i++) {
-    let numeroDeDescensos = matchesHorizontales[i][0]
+const reacomodarFilas = (matches) => {
+  for (let i = 0; i < matches.length; i++) {
+    let numeroDeDescensos = matches[i][0]
     for (let j = 0; j < numeroDeDescensos; j++) {
       let celdaADescender = document.querySelector(`div[data-x='${j}'][data-y='${matchesHorizontales[i][1]}']`)
       descenderCelda(celdaADescender)
     }
-
-  
   }
-
-
 }
 
 
@@ -301,9 +292,10 @@ const reacomodarColumnas = () => { }
 
 const obtenerMatches = () => {
 
-
   let matchesHorizontales = [];
   let matchesVerticales = [];
+  let matchesAcumuladosHorizontales = 0
+  let matchesAcumuladosVerticales = 0
 
   for (let i = 0; i < listaDeAnimales.length; i++) {
 
@@ -315,6 +307,9 @@ const obtenerMatches = () => {
         matchesHorizontales.push([i, j + 1])
         matchesHorizontales.push([i, j + 2])
 
+        matchesAcumuladosHorizontales += 1
+
+
       }
 
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
@@ -323,11 +318,12 @@ const obtenerMatches = () => {
         matchesVerticales.push([i + 1, j])
         matchesVerticales.push([i + 2, j])
 
-      }
+        matchesAcumuladosVerticales += 1
 
+      }  
     }
-
   }
+
 
   const obtenerCuadrado = (arr) => {
     return document.querySelector(`div[data-x='${arr[0]}'][data-y='${arr[1]}']`)
@@ -336,7 +332,6 @@ const obtenerMatches = () => {
 
   const desaparecerAnimal = (celda) => {
     celda.innerHTML = ""
-
   }
 
   for (let i = 0; i < matchesHorizontales.length; i++) {
@@ -348,14 +343,39 @@ const obtenerMatches = () => {
     const celda = obtenerCuadrado(matchesVerticales[i])
     desaparecerAnimal(celda)
 
-
   }
+
+  const puntosTotales = () => {
+    let puntajeVertical = 0
+    let puntajeHorizontal = 0
+
+    for (let i = 0; i < matchesAcumuladosVerticales; i++) {
+    puntajeVertical += 100
+    }
+
+    for (let i = 0; i < matchesAcumuladosHorizontales; i++) {
+    puntajeHorizontal += 100
+    }
+
+    return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+    }
+    
+  puntosTotales()
   deseleccionarItem()
   reacomodarFilas(matchesHorizontales)
+  reacomodarFilas(matchesVerticales)
+  
+}
+
+const inicializarContador = () => {
+  puntajeVertical = 0
+  puntajeHorizontal = 0
+  return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
 }
 
 
 
+/*
 
 // const obtenerMatchesVerticales = () => {
 
@@ -432,5 +452,5 @@ const obtenerMatches = () => {
 //     crearGrilla(10, 10);
 //   }
 // }
-
-
+}
+*/
