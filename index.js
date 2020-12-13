@@ -7,7 +7,11 @@ const botonBuscarMatches = document.getElementById("buscar-matches")
 const reiniciarJuego = document.getElementById("reiniciar-juego")
 const puntaje = document.getElementById("puntaje")
 const puntajeFinal = document.getElementById("puntaje-final")
+let tamanio = 50
 
+let tamanioPantallaCelular1 = window.matchMedia("screen (min-device-width: 400px) and (max-width: 700px)");
+let tamanioPantallaCelular2 = window.matchMedia("screen (max-width: 399px)");
+let tamanioPantallaCelular3 = window.matchMedia("screen (min-width: 701px)");
 
 
 const grilla = document.querySelector(".grilla");
@@ -68,6 +72,7 @@ const crearGrilla = (ancho, alto) => {
   return listaDeAnimales
 };
 
+
 // ==========> busco matches iniciales para que la grilla no empiece con matches! 
 const buscarMatchesInicial = () => {
   for (let i = 0; i < listaDeAnimales.length; i++) {
@@ -86,7 +91,19 @@ const buscarMatchesInicial = () => {
 }
 
 const generarCelda = (x, y, array) => {
-  const tamanio = 50
+  let tamanio = 50
+
+  // if (tamanioPantallaCelular3) {
+  //    tamanio = 50
+  // } 
+
+  // if (tamanioPantallaCelular1) {
+  //    tamanio = 45
+  // }
+
+  // if (tamanioPantallaCelular2) {
+  //   tamanio = 40
+  // }
 
   const celda = document.createElement('div')
   celda.dataset.x = x
@@ -99,7 +116,18 @@ const generarCelda = (x, y, array) => {
 }
 
 const agregarGrillaAHTML = (ancho) => {
-  const anchoDeGrilla = 50 * ancho
+  let anchoDeGrilla = 50 * ancho
+
+  
+//   if (tamanioPantallaCelular1) {
+//     anchoDeGrilla = 45
+//  }
+
+//  if (tamanioPantallaCelular2) {
+//   anchoDeGrilla = 40
+//  }
+
+
   grilla.style.width = `${anchoDeGrilla}px`
   grilla.innerHTML = ""
   for (let i = 0; i < listaDeAnimales.length; i++) {

@@ -140,7 +140,7 @@ h1 {
     font-weight: bold;
 }
 
-.texto-bienvenida>button {
+.texto-bienvenida > button {
     color: white;
     background-color: rgb(255, 0, 98);
     border-radius: 5px;
@@ -218,3 +218,53 @@ h1 {
 .hidden {
     display: none;
 }
+
+
+/*-------------------------------  MEDIA QUERIES  -------------------------------*/
+
+@media (min-device-width: 400px) and (max-width: 700px) {
+  
+    h1 {
+        font-size: 40px;
+    }
+    .contador {
+        width: 250px;
+        height: 40px;
+    }
+    .contenedor-timer {
+    width: 150px;
+    height: 40px;
+   }
+
+   /* .grilla {
+    width: 400px;
+    height: 250px;
+    } */
+
+}
+
+
+@media (max-width: 399px) {
+  
+    h1 {
+        font-size: 30px;
+    }
+    .contador {
+        width: 200px;
+        height: 30px;
+    }
+
+    .contenedor-timer {
+    width: 100px;
+    height: 30px;
+   }
+
+   /* .grilla {
+    width: 450px;
+    height: 300px; */
+ 
+}
+
+
+
+
