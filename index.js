@@ -278,8 +278,9 @@ const reacomodarFilas = (matchesHorizontales) => {
     
     for (let j = 0; j < numeroDeDescensos; j++) {
       
-      let celdaADescender = document.querySelector(`div[data-x='${k-1}'][data-y='${matchesHorizontales[i][1]}']`)
-      k--
+      // let celdaADescender = document.querySelector(`div[data-x='${k-1}'][data-y='${matchesHorizontales[i][1]}']`)
+      // k--
+      let celdaADescender = document.querySelector(`div[data-x='${j}'][data-y='${matches[i][1]}']`)
 
       descenderCelda(celdaADescender)
 
