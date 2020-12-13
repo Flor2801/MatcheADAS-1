@@ -178,7 +178,6 @@ const seleccionarItem = (e) => {
   let primeraCeldaSeleccionada = document.querySelector(".remarcar")
   //Si ya existe una celda seleccionada
   if (primeraCeldaSeleccionada != null) {
- 
     if (sonAdyacentes(primeraCeldaSeleccionada, e.target)) {
       e.target.classList.add(".segundaCelda")
       intercambiarCeldas(primeraCeldaSeleccionada, e.target)
@@ -187,7 +186,6 @@ const seleccionarItem = (e) => {
     else {
       primeraCeldaSeleccionada.classList.remove("remarcar")
       e.target.classList.add("remarcar")
-   
     }
 
   }
@@ -244,8 +242,6 @@ const intercambiarCeldas = (celda1, celda2) => {
   }
 }
 
-
-
 // Obtener Matches y desaparecerlos
 
 const deseleccionarItem = () => {
@@ -266,6 +262,7 @@ const descenderCelda = (celda) => {
   celda.dataset.x = x + 1
 }
 
+
 const reacomodarFilas = (matchesHorizontales) => {
   for (let i = 0; i < matchesHorizontales.length; i++) {
     let numeroDeDescensos = matchesHorizontales[i][0]
@@ -282,9 +279,8 @@ const reacomodarFilas = (matchesHorizontales) => {
     
     for (let j = 0; j < numeroDeDescensos; j++) {
       
-      // let celdaADescender = document.querySelector(`div[data-x='${k-1}'][data-y='${matchesHorizontales[i][1]}']`)
-      // k--
-      let celdaADescender = document.querySelector(`div[data-x='${j}'][data-y='${matches[i][1]}']`)
+      let celdaADescender = document.querySelector(`div[data-x='${k-1}'][data-y='${matchesHorizontales[i][1]}']`)
+      k--
 
       descenderCelda(celdaADescender)
 
@@ -298,17 +294,14 @@ const reacomodarFilas = (matchesHorizontales) => {
 }
 
 
-
 const reacomodarColumnas = () => { }
 
 const obtenerMatches = () => {
 
   let matchesHorizontales = [];
   let matchesVerticales = [];
-
   let matchesAcumuladosHorizontales = 0
   let matchesAcumuladosVerticales = 0
-  let puntajeTotal = 0
 
   for (let i = 0; i < listaDeAnimales.length; i++) {
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
@@ -323,12 +316,10 @@ const obtenerMatches = () => {
         matchesHorizontales.push([i, j + 2])
 
         matchesAcumuladosHorizontales += 1
-
       }
 
-      else {
-        intercambiarCeldas(primera,segunda)
-      }
+    
+
 
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
 
@@ -337,12 +328,7 @@ const obtenerMatches = () => {
         matchesVerticales.push([i + 2, j])
 
         matchesAcumuladosVerticales += 1
-
       }  
-
-      else {
-        intercambiarCeldas(segunda,primera)
-      }
 
     }
   }
@@ -363,13 +349,11 @@ const obtenerMatches = () => {
   for (let i = 0; i < matchesVerticales.length; i++) {
     const celda = obtenerCuadrado(matchesVerticales[i])
     desaparecerAnimal(celda)
-
   }
 
   const puntosTotales = () => {
     let puntajeVertical = 0
     let puntajeHorizontal = 0
-    
 
     for (let i = 0; i < matchesAcumuladosVerticales; i++) {
     puntajeVertical += 100
@@ -378,16 +362,15 @@ const obtenerMatches = () => {
     for (let i = 0; i < matchesAcumuladosHorizontales; i++) {
     puntajeHorizontal += 100
     }
-    
-    puntajeTotal =  puntajeVertical + puntajeHorizontal
-    puntaje.innerHTML = Number(puntajeTotal)
-    puntajeFinal.textContent = puntajeTotal
+   puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+   puntajeFinal.innerHTML = puntajeVertical + puntajeHorizontal
+
     }
 
   puntosTotales()
- /* deseleccionarItem()*/
+  deseleccionarItem()
   reacomodarFilas(matchesHorizontales)
-  /*reacomodarFilas(matchesVerticales)*/
+  // reacomodarFilas(matchesVerticales)
 }
 
 const inicializarContador = () => {
@@ -396,13 +379,13 @@ const inicializarContador = () => {
   return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
 }
 
+
 const mostrarModalFinDeJuego = () => {
   modalFinDeJuego.classList.remove("hidden")
   overlay.classList.remove('hidden')
 }
 
 // const obtenerMatchesVerticales = () => {
-
 
 /*
 // const obtenerMatchesVerticales = () => {
