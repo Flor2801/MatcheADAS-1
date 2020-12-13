@@ -212,6 +212,8 @@ const sonAdyacentes = (celda1, celda2) => {
   }
 }
 
+
+
 const intercambiarCeldas = (celda1, celda2) => {
   const datax1 = Number(celda1.dataset.x)
   const datax2 = Number(celda2.dataset.x)
@@ -306,8 +308,8 @@ const obtenerMatches = () => {
   for (let i = 0; i < listaDeAnimales.length; i++) {
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
 
-      let primera = document.querySelector(".remarcar")
-      let segunda = document.querySelector(".segundaCelda")
+      let primera = document.querySelector(".segundaCelda")
+      let segunda = document.querySelector(".remarcar")
 
       if (listaDeAnimales[i][j] === listaDeAnimales[i][j + 1] && listaDeAnimales[i][j] === listaDeAnimales[i][j + 2]) {
 
@@ -318,7 +320,9 @@ const obtenerMatches = () => {
         matchesAcumuladosHorizontales += 1
       }
 
-    
+    // else {
+    //   intercambiarCeldas(primera,segunda)
+    // }
 
 
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
@@ -329,6 +333,10 @@ const obtenerMatches = () => {
 
         matchesAcumuladosVerticales += 1
       }  
+
+      // else {
+      //   intercambiarCeldas(primera,segunda)
+      // }
 
     }
   }
