@@ -314,6 +314,9 @@ const obtenerMatches = () => {
   let matchesHorizontales = [];
   let matchesVerticales = [];
 
+  let matchesAcumuladosHorizontales = 0
+  let matchesAcumuladosVerticales = 0
+
   for (let i = 0; i < listaDeAnimales.length; i++) {
 
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
@@ -324,6 +327,8 @@ const obtenerMatches = () => {
         matchesHorizontales.push([i, j + 1])
         matchesHorizontales.push([i, j + 2])
 
+        matchesAcumuladosHorizontales += 1
+
       }
 
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
@@ -332,10 +337,32 @@ const obtenerMatches = () => {
         matchesVerticales.push([i + 1, j])
         matchesVerticales.push([i + 2, j])
 
+        matchesAcumuladosVerticales += 1
       }
 
       
     }
+
+    
+const puntosTotales = () => {
+  let puntajeVertical = 0
+  let puntajeHorizontal = 0
+
+  for (let i = 0; i < matchesAcumuladosVerticales; i++) {
+  puntajeVertical += 100
+  }
+
+  for (let i = 0; i < matchesAcumuladosHorizontales; i++) {
+  puntajeHorizontal += 100
+  }
+  return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+  }
+
+puntosTotales()
+deseleccionarItem()
+reacomodarFilas(matchesHorizontales)
+reacomodarFilas(matchesVerticales)
+
 
   }
 
@@ -371,6 +398,15 @@ const obtenerMatches = () => {
   }
   
 }
+
+
+
+const inicializarContador = () => {
+puntajeVertical = 0
+puntajeHorizontal = 0
+return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+}
+
 
 
 
