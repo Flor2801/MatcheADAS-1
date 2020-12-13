@@ -348,9 +348,9 @@ const obtenerMatches = () => {
         matchesAcumuladosHorizontales += 1
       }
 
-    // else {
-    //   intercambiarCeldas(primera,segunda)
-    // }
+    else {
+      intercambiarCeldas(primera,segunda)
+    }
 
 
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
@@ -362,9 +362,9 @@ const obtenerMatches = () => {
         matchesAcumuladosVerticales += 1
       }  
 
-      // else {
-      //   intercambiarCeldas(primera,segunda)
-      // }
+      else {
+        intercambiarCeldas(primera,segunda)
+      }
 
     }
   }
