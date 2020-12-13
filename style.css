@@ -180,6 +180,10 @@ h1 {
     transform: scale(1.1, 1.1);
 }
 
+.segundacelda {
+    border: 1px solid white;
+}
+
 #fin-de-juego {
     width: 400px;
     height: 200px;

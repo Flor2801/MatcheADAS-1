@@ -178,16 +178,20 @@ const seleccionarItem = (e) => {
   let primeraCeldaSeleccionada = document.querySelector(".remarcar")
   //Si ya existe una celda seleccionada
   if (primeraCeldaSeleccionada != null) {
+ 
     if (sonAdyacentes(primeraCeldaSeleccionada, e.target)) {
+      e.target.classList.add(".segundaCelda")
       intercambiarCeldas(primeraCeldaSeleccionada, e.target)
       obtenerMatches()
     }
     else {
       primeraCeldaSeleccionada.classList.remove("remarcar")
       e.target.classList.add("remarcar")
+   
     }
 
   }
+  // Si no hay ninguna celda seleccionada
   else (
     e.target.classList.add("remarcar")
   )
@@ -308,6 +312,9 @@ const obtenerMatches = () => {
   for (let i = 0; i < listaDeAnimales.length; i++) {
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
 
+      let primera = document.querySelector(".remarcar")
+      let segunda = document.querySelector(".segundaCelda")
+
       if (listaDeAnimales[i][j] === listaDeAnimales[i][j + 1] && listaDeAnimales[i][j] === listaDeAnimales[i][j + 2]) {
 
         matchesHorizontales.push([i, j])
@@ -318,9 +325,9 @@ const obtenerMatches = () => {
 
       }
 
-      // else {
-      //   intercambiarCeldas()
-      // }
+      else {
+        intercambiarCeldas(primera,segunda)
+      }
 
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
 
@@ -332,9 +339,10 @@ const obtenerMatches = () => {
 
       }  
 
-      // else {
-      //   intercambiarCeldas()
-      // }
+      else {
+        intercambiarCeldas(segunda,primera)
+      }
+
     }
   }
 
