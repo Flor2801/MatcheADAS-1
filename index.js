@@ -31,14 +31,12 @@ botonInfo.onclick = () => {
 
 botonReiniciar.onclick = () => {
   iniciarJuego();
-  PuntosTotales = 0
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden')
 }
 
 reiniciarJuego.onclick = () => {
   iniciarJuego()
-  PuntosTotales = 0
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden')
 }
@@ -125,7 +123,7 @@ const iniciarJuego = () => {
   let limiteDeTiempo = new Date()
   limiteDeTiempo.setSeconds(limiteDeTiempo.getSeconds() + 30)
   comenzarCuentaRegresiva(limiteDeTiempo)
-  inicializarContador()
+  // inicializarContador()
 }
 
 nuevoJuego.onclick = () => {
@@ -330,20 +328,20 @@ const reacomodarColumnas = (matchesVerticales) => {
 
 }
 
-let PuntosTotales = 0
+
+let matchesAcumuladosHorizontales = 0
+let matchesAcumuladosVerticales = 0
 
 const obtenerMatches = () => {
 
   let matchesHorizontales = [];
   let matchesVerticales = [];
-  let matchesAcumuladosHorizontales = 0
-  let matchesAcumuladosVerticales = 0
 
   for (let i = 0; i < listaDeAnimales.length; i++) {
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
 
-      let primera = document.querySelector(".segundaCelda")
-      let segunda = document.querySelector(".remarcar")
+      // let primera = document.querySelector(".segundaCelda")
+      // let segunda = document.querySelector(".remarcar")
 
       if (listaDeAnimales[i][j] === listaDeAnimales[i][j + 1] && listaDeAnimales[i][j] === listaDeAnimales[i][j + 2]) {
 
@@ -373,13 +371,13 @@ const obtenerMatches = () => {
       // }
 
     }
+    puntosTotales()
   }
 
   //solo deseleccionar item si se produjo un match
   if (matchesHorizontales.length > 0 || matchesVerticales.length > 0) {
     deseleccionarItem()
   }
-
 
   const obtenerCuadrado = (arr) => {
     return document.querySelector(`div[data-x='${arr[0]}'][data-y='${arr[1]}']`)
@@ -388,7 +386,6 @@ const obtenerMatches = () => {
   const desaparecerAnimal = (celda) => {
     if (celda != null)
       grilla.removeChild(celda)
-
   }
 
   for (let i = 0; i < matchesHorizontales.length; i++) {
@@ -408,49 +405,67 @@ const obtenerMatches = () => {
     reacomodarColumnas(matchesVerticales)
   }
 
-
-if(matchesAcumuladosHorizontales>0 || matchesAcumuladosVerticales>0){
-  let puntosGanados = obtenerPuntos(matchesAcumuladosHorizontales,matchesAcumuladosVerticales)
-  PuntosTotales = PuntosTotales+puntosGanados
-  modificarPuntajeHTML(PuntosTotales)
-}
-  
+// if(matchesAcumuladosHorizontales>0 || matchesAcumuladosVerticales>0){
+//   let puntosGanados = obtenerPuntos(matchesAcumuladosHorizontales,matchesAcumuladosVerticales)
+//   PuntosTotales = PuntosTotales+puntosGanados
+//   modificarPuntajeHTML(PuntosTotales)
+// }
 
 }
 
-
-
-const obtenerPuntos = (cantidadMatchesHorizontales, cantidadDeMatchesVerticales) => {
+// const obtenerPuntos = (cantidadMatchesHorizontales, cantidadDeMatchesVerticales) => {
  
-  let puntajeVertical = 0 
+//   let puntajeVertical = 0 
+//   let puntajeHorizontal = 0
+  
+//   for (let i = 0; i < cantidadDeMatchesVerticales; i++) {
+//     puntajeVertical += 100
+//   }
+
+//   for (let i = 0; i < cantidadMatchesHorizontales; i++) {
+//     puntajeHorizontal += 100
+//   }
+
+//   let puntajeTotal = puntajeHorizontal + puntajeVertical
+//   puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+//   puntajeFinal.innerHTML = puntajeVertical + puntajeHorizontal
+// }
+
+// const modificarPuntajeHTML=(puntajeTotal)=>{
+
+//   puntaje.innerHTML = puntajeTotal
+//   puntajeFinal.innerHTML = puntajeTotal
+
+// }
+
+
+const puntosTotales = () => {
+  let puntajeVertical = 0
   let puntajeHorizontal = 0
-  
-  for (let i = 0; i < cantidadDeMatchesVerticales; i++) {
-    puntajeVertical += 100
+
+  for (let i = 0; i < matchesAcumuladosVerticales; i++) {
+  puntajeVertical += 100
   }
 
-  for (let i = 0; i < cantidadMatchesHorizontales; i++) {
-    puntajeHorizontal += 100
+  for (let i = 0; i < matchesAcumuladosHorizontales; i++) {
+  puntajeHorizontal += 100
+  }
+  
+  puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+  puntajeFinal.innerHTML = puntajeVertical + puntajeHorizontal
   }
 
-  let puntajeTotal = puntajeHorizontal + puntajeVertical
-  
-  return puntajeTotal
+puntosTotales()
+// deseleccionarItem()
+// reacomodarFilas(matchesHorizontales)
+// reacomodarFilas(matchesVerticales)
 
 
-}
 
-const modificarPuntajeHTML=(puntajeTotal)=>{
 
-  puntaje.innerHTML = puntajeTotal
-  puntajeFinal.innerHTML = puntajeTotal
 
-}
-
-const inicializarContador = () => {
-  puntajeVertical = 0
-  puntajeHorizontal = 0
-  return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+function inicializarContador() {
+  puntaje.innerHTML = 0
 }
 
 
