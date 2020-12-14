@@ -167,6 +167,7 @@ const comenzarCuentaRegresiva = (limiteDeTiempo) => {
       //(actualizadorDeTiempo) es el identificador de la acción reiterativa que se desea cancelar.
       clearInterval(actualizadorDeTiempo)
       mostrarModalFinDeJuego()
+
     }
   }, 1000)
 
@@ -313,6 +314,7 @@ const reacomodarColumnas = (matchesVerticales) => {
     k--
     for (let j = 0; j < 3; j++) {
       descenderCelda(celdaADescender)
+    }
 
   }
 
@@ -334,8 +336,6 @@ const obtenerMatches = () => {
 
   let matchesHorizontales = [];
   let matchesVerticales = [];
-  let matchesAcumuladosHorizontales = 0
-  let matchesAcumuladosVerticales = 0
 
   for (let i = 0; i < listaDeAnimales.length; i++) {
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
@@ -379,7 +379,6 @@ const obtenerMatches = () => {
     deseleccionarItem()
   }
 
-
   const obtenerCuadrado = (arr) => {
     return document.querySelector(`div[data-x='${arr[0]}'][data-y='${arr[1]}']`)
   }
@@ -414,10 +413,14 @@ const obtenerMatches = () => {
 
 }
 
-const mostrarModalFinDeJuego = () => {
-  modalFinDeJuego.classList.remove("hidden")
-  overlay.classList.remove('hidden')
-}
+// const obtenerPuntos = (cantidadMatchesHorizontales, cantidadDeMatchesVerticales) => {
+ 
+//   let puntajeVertical = 0 
+//   let puntajeHorizontal = 0
+  
+//   for (let i = 0; i < cantidadDeMatchesVerticales; i++) {
+//     puntajeVertical += 100
+//   }
 
 //   for (let i = 0; i < cantidadMatchesHorizontales; i++) {
 //     puntajeHorizontal += 100
@@ -457,7 +460,8 @@ puntosTotales()
 // reacomodarFilas(matchesHorizontales)
 // reacomodarFilas(matchesVerticales)
 
-}
+
+
 
 
 function inicializarContador() {
@@ -523,6 +527,5 @@ const mostrarModalFinDeJuego = () => {
 //     crearGrilla(10, 10);
 //   }
 // }
-}
 }
 */
