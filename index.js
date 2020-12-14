@@ -210,21 +210,14 @@ const seleccionarItem = (e) => {
   //Si ya existe una celda seleccionada
   if (primeraCeldaSeleccionada != null) {
     if (sonAdyacentes(primeraCeldaSeleccionada, e.target)) {
-      e.target.classList.add(".segundaCelda")
+      e.target.classList.add("segundaCelda")
       intercambiarCeldas(primeraCeldaSeleccionada, e.target)
       obtenerMatches()
-      if (obtenerMatches() === false) {
-        let primera = document.querySelector("segunda Celda")
-        let segunda = document.querySelector("remarcar")
-
-        intercambiarCeldas(primera,segunda)
-      }
     }
     else {
       primeraCeldaSeleccionada.classList.remove("remarcar")
       e.target.classList.add("remarcar")
     }
-
   }
   // Si no hay ninguna celda seleccionada
   else (
@@ -397,10 +390,20 @@ const obtenerMatches = () => {
       // else {
       //   intercambiarCeldas(primera,segunda)
       // }
-
     }
-    puntosTotales()
+  
   }
+      let primera = document.querySelector(".segundaCelda")
+      let segunda = document.querySelector(".remarcar")
+      
+  if (matchesHorizontales.length == 0 && matchesVerticales.length == 0) {
+    setTimeout(() => {intercambiarCeldas(primera,segunda)}, 500)
+    primera.classList.remove("remarcar")
+    segunda.classList.remove("segundaCelda")
+    console.log(primera)  
+    console.log(segunda)  
+}
+    puntosTotales()
 
   //solo deseleccionar item si se produjo un match
   if (matchesHorizontales.length > 0 || matchesVerticales.length > 0) {
