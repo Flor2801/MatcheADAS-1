@@ -7,7 +7,6 @@ const botonBuscarMatches = document.getElementById("buscar-matches")
 const reiniciarJuego = document.getElementById("reiniciar-juego")
 const puntaje = document.getElementById("puntaje")
 const puntajeFinal = document.getElementById("puntaje-final")
-let tamanio = 50
 
 let tamanioPantallaCelular1 = window.matchMedia("screen (min-device-width: 400px) and (max-width: 700px)");
 let tamanioPantallaCelular2 = window.matchMedia("screen (max-width: 399px)");
@@ -93,17 +92,17 @@ const buscarMatchesInicial = () => {
 const generarCelda = (x, y, array) => {
   let tamanio = 50
 
-  // if (tamanioPantallaCelular3) {
-  //    tamanio = 50
-  // } 
+  if (tamanioPantallaCelular3.matches) {
+    tamanio = 50
+ }
 
-  // if (tamanioPantallaCelular1) {
-  //    tamanio = 45
-  // }
+  if (tamanioPantallaCelular1.matches) {
+     tamanio = 45
+  }
 
-  // if (tamanioPantallaCelular2) {
-  //   tamanio = 40
-  // }
+  if (tamanioPantallaCelular2.matches) {
+    tamanio = 40
+  }
 
   const celda = document.createElement('div')
   celda.dataset.x = x
@@ -116,17 +115,19 @@ const generarCelda = (x, y, array) => {
 }
 
 const agregarGrillaAHTML = (ancho) => {
-  let anchoDeGrilla = 50 * ancho
+ let anchoDeGrilla = 50*ancho
 
+  if (tamanioPantallaCelular3.matches) {
+    anchoDeGrilla = 50 * ancho
+ }
   
-//   if (tamanioPantallaCelular1) {
-//     anchoDeGrilla = 45
-//  }
+  if (tamanioPantallaCelular1.matches) {
+    anchoDeGrilla = 45 * ancho
+ }
 
-//  if (tamanioPantallaCelular2) {
-//   anchoDeGrilla = 40
-//  }
-
+ if (tamanioPantallaCelular2.matches) {
+  anchoDeGrilla = 40 * ancho
+ }
 
   grilla.style.width = `${anchoDeGrilla}px`
   grilla.innerHTML = ""
@@ -202,18 +203,29 @@ const comenzarCuentaRegresiva = (limiteDeTiempo) => {
 }
 
 
+
+
 const seleccionarItem = (e) => {
   let primeraCeldaSeleccionada = document.querySelector(".remarcar")
   //Si ya existe una celda seleccionada
   if (primeraCeldaSeleccionada != null) {
     if (sonAdyacentes(primeraCeldaSeleccionada, e.target)) {
-      e.target.classList.add(".segundaCelda")
+      e.target.classList.add("segundaCelda")
       intercambiarCeldas(primeraCeldaSeleccionada, e.target)
       obtenerMatches()
+      if (obtenerMatches() === false) {
+        
+      let primera = document.querySelector("segundaCelda")
+      let segunda = document.querySelector("remarcar")
+
+        intercambiarCeldas(primera,segunda)
+      }
     }
     else {
       primeraCeldaSeleccionada.classList.remove("remarcar")
       e.target.classList.add("remarcar")
+      e.target.classList.add("segundaCelda")
+
     }
 
   }
@@ -222,6 +234,8 @@ const seleccionarItem = (e) => {
     e.target.classList.add("remarcar")
   )
 }
+
+
 //Devuelve verdadero si dos celdas son adyacentes y falso si no lo
 
 const sonAdyacentes = (celda1, celda2) => {
@@ -243,6 +257,7 @@ const sonAdyacentes = (celda1, celda2) => {
 
 
 const intercambiarCeldas = (celda1, celda2) => {
+  console.log(celda1,celda2)
   const datax1 = Number(celda1.dataset.x)
   const datax2 = Number(celda2.dataset.x)
   const datay1 = Number(celda1.dataset.y)
@@ -273,10 +288,9 @@ const intercambiarCeldas = (celda1, celda2) => {
 }
 
 // Obtener Matches y desaparecerlos
-
 const deseleccionarItem = () => {
   let celda = document.querySelector(".remarcar")
-  celda.classList.remove("remarcar")
+  celda.classList.remove(".remarcar")
 }
 
 const descenderCelda = (celda) => {
@@ -326,6 +340,13 @@ const reacomodarFilas = (matchesHorizontales) => {
 
 const reacomodarColumnas = () => { }
 
+// const devolverItems = (celda1,celda2) => {
+//   if (!obtenerMatches()) {
+//     intercambiarCeldas(celda1,celda2)
+//   }
+// } 
+
+
 const obtenerMatches = () => {
 
   let matchesHorizontales = [];
@@ -335,10 +356,8 @@ const obtenerMatches = () => {
 
   for (let i = 0; i < listaDeAnimales.length; i++) {
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
-
-      let primera = document.querySelector(".segundaCelda")
-      let segunda = document.querySelector(".remarcar")
-
+    
+    
       if (listaDeAnimales[i][j] === listaDeAnimales[i][j + 1] && listaDeAnimales[i][j] === listaDeAnimales[i][j + 2]) {
 
         matchesHorizontales.push([i, j])
@@ -347,11 +366,10 @@ const obtenerMatches = () => {
 
         matchesAcumuladosHorizontales += 1
       }
-
-    else {
-      intercambiarCeldas(primera,segunda)
-    }
-
+      // else {
+      //   devolverItems(celda1,celda2)
+      // }
+      
 
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
 
@@ -362,13 +380,17 @@ const obtenerMatches = () => {
         matchesAcumuladosVerticales += 1
       }  
 
-      else {
-        intercambiarCeldas(primera,segunda)
-      }
+      // else {
+      //   devolverItems(celda1,celda2)
+      // }
+      
 
     }
   }
 
+
+
+ 
 
   const obtenerCuadrado = (arr) => {
     return document.querySelector(`div[data-x='${arr[0]}'][data-y='${arr[1]}']`)
