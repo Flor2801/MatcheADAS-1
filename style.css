@@ -72,10 +72,14 @@ body {
     font-size: 18px;
 }
 
+<<<<<<< HEAD
 #segundos {
     font-size: 25px;
     margin-left: 10px;
 }
+=======
+
+>>>>>>> Matches
 
 .puntos {
     color: #fafafa;
@@ -88,6 +92,18 @@ body {
 .contenedor-botones {
     margin-right: 10px;
 }
+<<<<<<< HEAD
+=======
+
+
+.puntaje {
+    color: #fafafa;
+    font-family: Montserrat, sans-serif;
+    font-family: 'Pacifico', cursive;
+    font-size: 20px;
+}
+ 
+>>>>>>> Matches
 
 .bienvenida {
     position: absolute;

@@ -123,7 +123,7 @@ const iniciarJuego = () => {
   let limiteDeTiempo = new Date()
   limiteDeTiempo.setSeconds(limiteDeTiempo.getSeconds() + 30)
   comenzarCuentaRegresiva(limiteDeTiempo)
-  inicializarContador()
+  // inicializarContador()
 }
 
 nuevoJuego.onclick = () => {
@@ -167,7 +167,6 @@ const comenzarCuentaRegresiva = (limiteDeTiempo) => {
       //(actualizadorDeTiempo) es el identificador de la acción reiterativa que se desea cancelar.
       clearInterval(actualizadorDeTiempo)
       mostrarModalFinDeJuego()
-    
     }
   }, 1000)
 
@@ -248,7 +247,10 @@ const intercambiarCeldas = (celda1, celda2) => {
 
 const deseleccionarItem = () => {
   let celda = document.querySelector(".remarcar")
-  celda.classList.remove("remarcar")
+  if (celda != null) {
+
+    celda.classList.remove("remarcar")
+  }
 }
 
 const descenderCelda = (celda) => {
@@ -268,35 +270,65 @@ const descenderCelda = (celda) => {
 const reacomodarFilas = (matchesHorizontales) => {
   for (let i = 0; i < matchesHorizontales.length; i++) {
     let numeroDeDescensos = matchesHorizontales[i][0]
-    
+    let numColumna = matchesHorizontales[i][1]
+
     //Caso en que el match sea en la primera fila
-    if(numeroDeDescensos === 0){
-        listaDeAnimales[0][matchesHorizontales[i][1]] = obtenerAnimalAlAzar(items)
-        let nuevaCelda = generarCelda(0,matchesHorizontales[i][1],listaDeAnimales)
-        grilla.appendChild(nuevaCelda)
-    }
-    
-    //agregue k para poder ir moviendo primero los de abajo y despues los de arriba
-    let k = numeroDeDescensos
-    
-    for (let j = 0; j < numeroDeDescensos; j++) {
-      
-      let celdaADescender = document.querySelector(`div[data-x='${k-1}'][data-y='${matchesHorizontales[i][1]}']`)
-      k--
+    if (numeroDeDescensos === 0) {
+      agregarCeldaEnFilaSuperior(numColumna)
 
-      descenderCelda(celdaADescender)
+    } else {
 
-      if(k<=0){
-        listaDeAnimales[0][matchesHorizontales[i][1]] = obtenerAnimalAlAzar(items)
-        let nuevaCelda = generarCelda(0,matchesHorizontales[i][1],listaDeAnimales)
-        grilla.appendChild(nuevaCelda)
+      let k = numeroDeDescensos
+
+      for (let j = 0; j < numeroDeDescensos; j++) {
+
+        let celdaADescender = document.querySelector(`div[data-x='${k - 1}'][data-y='${matchesHorizontales[i][1]}']`)
+        k--
+
+        descenderCelda(celdaADescender)
       }
+
+      agregarCeldaEnFilaSuperior(numColumna)
+
     }
   }
+  obtenerMatches()
+}
+
+agregarCeldaEnFilaSuperior = (numColumna) => {
+  //agrega el animal en la matriz
+  listaDeAnimales[0][numColumna] = obtenerAnimalAlAzar(items)
+
+  //crea el div y lo agrega al HTML
+  let celdaAlTope = generarCelda(0, numColumna, listaDeAnimales)
+  grilla.appendChild(celdaAlTope)
+}
+
+const reacomodarColumnas = (matchesVerticales) => {
+  let cantidadDeCeldasEncima = matchesVerticales[0][0]
+  let k = cantidadDeCeldasEncima
+  for (let i = 0; i < cantidadDeCeldasEncima; i++) {
+
+    let celdaADescender = document.querySelector(`div[data-x='${k - 1}'][data-y='${matchesVerticales[i][1]}']`)
+    k--
+    for (let j = 0; j < 3; j++) {
+      descenderCelda(celdaADescender)
+
+  }
+
+  for (let i = 0; i < 3; i++) {
+
+    listaDeAnimales[i][matchesVerticales[0][1]] = obtenerAnimalAlAzar(items)
+
+    let celda = generarCelda(i, matchesVerticales[0][1], listaDeAnimales)
+    grilla.appendChild(celda)
+  }
+
 }
 
 
-const reacomodarColumnas = () => { }
+let matchesAcumuladosHorizontales = 0
+let matchesAcumuladosVerticales = 0
 
 const obtenerMatches = () => {
 
@@ -308,8 +340,8 @@ const obtenerMatches = () => {
   for (let i = 0; i < listaDeAnimales.length; i++) {
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
 
-      let primera = document.querySelector(".segundaCelda")
-      let segunda = document.querySelector(".remarcar")
+      // let primera = document.querySelector(".segundaCelda")
+      // let segunda = document.querySelector(".remarcar")
 
       if (listaDeAnimales[i][j] === listaDeAnimales[i][j + 1] && listaDeAnimales[i][j] === listaDeAnimales[i][j + 2]) {
 
@@ -320,9 +352,9 @@ const obtenerMatches = () => {
         matchesAcumuladosHorizontales += 1
       }
 
-    // else {
-    //   intercambiarCeldas(primera,segunda)
-    // }
+      // else {
+      //   intercambiarCeldas(primera,segunda)
+      // }
 
 
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
@@ -332,13 +364,19 @@ const obtenerMatches = () => {
         matchesVerticales.push([i + 2, j])
 
         matchesAcumuladosVerticales += 1
-      }  
+      }
 
       // else {
       //   intercambiarCeldas(primera,segunda)
       // }
 
     }
+    puntosTotales()
+  }
+
+  //solo deseleccionar item si se produjo un match
+  if (matchesHorizontales.length > 0 || matchesVerticales.length > 0) {
+    deseleccionarItem()
   }
 
 
@@ -347,7 +385,8 @@ const obtenerMatches = () => {
   }
 
   const desaparecerAnimal = (celda) => {
-    celda.innerHTML = ""
+    if (celda != null)
+      grilla.removeChild(celda)
   }
 
   for (let i = 0; i < matchesHorizontales.length; i++) {
@@ -359,32 +398,70 @@ const obtenerMatches = () => {
     desaparecerAnimal(celda)
   }
 
-  const puntosTotales = () => {
-    let puntajeVertical = 0
-    let puntajeHorizontal = 0
+  //reacomodar filas y columnas si se produjo un match
+  if (matchesHorizontales.length > 0) {
+    reacomodarFilas(matchesHorizontales)
+  }
+  if (matchesVerticales.length > 0) {
+    reacomodarColumnas(matchesVerticales)
+  }
 
-    for (let i = 0; i < matchesAcumuladosVerticales; i++) {
-    puntajeVertical += 100
-    }
+// if(matchesAcumuladosHorizontales>0 || matchesAcumuladosVerticales>0){
+//   let puntosGanados = obtenerPuntos(matchesAcumuladosHorizontales,matchesAcumuladosVerticales)
+//   PuntosTotales = PuntosTotales+puntosGanados
+//   modificarPuntajeHTML(PuntosTotales)
+// }
 
-    for (let i = 0; i < matchesAcumuladosHorizontales; i++) {
-    puntajeHorizontal += 100
-    }
-   puntaje.innerHTML = puntajeVertical + puntajeHorizontal
-   puntajeFinal.innerHTML = puntajeVertical + puntajeHorizontal
-
-    }
-
-  puntosTotales()
-  deseleccionarItem()
-  reacomodarFilas(matchesHorizontales)
-  // reacomodarFilas(matchesVerticales)
 }
 
-const inicializarContador = () => {
-  puntajeVertical = 0
-  puntajeHorizontal = 0
-  return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+const mostrarModalFinDeJuego = () => {
+  modalFinDeJuego.classList.remove("hidden")
+  overlay.classList.remove('hidden')
+}
+
+//   for (let i = 0; i < cantidadMatchesHorizontales; i++) {
+//     puntajeHorizontal += 100
+//   }
+
+//   let puntajeTotal = puntajeHorizontal + puntajeVertical
+//   puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+//   puntajeFinal.innerHTML = puntajeVertical + puntajeHorizontal
+// }
+
+// const modificarPuntajeHTML=(puntajeTotal)=>{
+
+//   puntaje.innerHTML = puntajeTotal
+//   puntajeFinal.innerHTML = puntajeTotal
+
+// }
+
+
+const puntosTotales = () => {
+  let puntajeVertical = 0
+  let puntajeHorizontal = 0
+
+  for (let i = 0; i < matchesAcumuladosVerticales; i++) {
+  puntajeVertical += 100
+  }
+
+  for (let i = 0; i < matchesAcumuladosHorizontales; i++) {
+  puntajeHorizontal += 100
+  }
+  
+  puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+  puntajeFinal.innerHTML = puntajeVertical + puntajeHorizontal
+  }
+
+puntosTotales()
+// deseleccionarItem()
+// reacomodarFilas(matchesHorizontales)
+// reacomodarFilas(matchesVerticales)
+
+}
+
+
+function inicializarContador() {
+  puntaje.innerHTML = 0
 }
 
 
@@ -446,5 +523,6 @@ const mostrarModalFinDeJuego = () => {
 //     crearGrilla(10, 10);
 //   }
 // }
+}
 }
 */
