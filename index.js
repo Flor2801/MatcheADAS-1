@@ -1,24 +1,25 @@
-const overlay = document.getElementById('bienvenida')
-const modalBienvenida = document.getElementById('modal-inicial')
-const botonBienvenida = document.getElementById('boton-bienvenida')
-const modalFinDeJuego = document.getElementById('fin-de-juego')
-const parrafoSegundos = document.getElementById("segundos")
+const overlay = document.getElementById('bienvenida');
+const modalBienvenida = document.getElementById('modal-inicial');
+const botonBienvenida = document.getElementById('boton-bienvenida');
+const modalFinDeJuego = document.getElementById('fin-de-juego');
+const parrafoSegundos = document.getElementById("segundos");
 const botonBuscarMatches = document.getElementById("buscar-matches")
-const reiniciarJuego = document.getElementById("reiniciar-juego")
-const puntaje = document.getElementById("puntaje")
-const puntajeFinal = document.getElementById("puntaje-final")
-
-
-
+const reiniciarJuego = document.getElementById("reiniciar-juego");
+const puntaje = document.getElementById("puntaje");
+const puntajeFinal = document.getElementById("puntaje-final");
 const grilla = document.querySelector(".grilla");
 // const botonFacil = document.getElementById("facil");
 // const botonMedio = document.getElementById("medio");
 // const botonDificil = document.getElementById("dificil");
 const nuevoJuego = document.getElementById("nuevo-juego");
 // const reiniciarJuego = document.getElementById("reiniciar-juego");
+const botonInfo = document.querySelector(".info");
+const botonReiniciar = document.querySelector(".reiniciar");
 
-const botonInfo = document.querySelector(".info")
-const botonReiniciar = document.querySelector(".reiniciar")
+let tamanioPantallaCelular1 = window.matchMedia("screen (min-device-width: 400px) and (max-width: 700px)");
+let tamanioPantallaCelular2 = window.matchMedia("screen (max-width: 399px)");
+let tamanioPantallaCelular3 = window.matchMedia("screen (min-width: 701px)");
+
 
 let actualizadorDeTiempo = null
 
@@ -32,13 +33,15 @@ botonInfo.onclick = () => {
 botonReiniciar.onclick = () => {
   iniciarJuego();
   modalFinDeJuego.classList.add("hidden")
-  overlay.classList.add('hidden')
+  overlay.classList.add('hidden'),
+  inicializarContador()
 }
 
 reiniciarJuego.onclick = () => {
   iniciarJuego()
   modalFinDeJuego.classList.add("hidden")
-  overlay.classList.add('hidden')
+  overlay.classList.add('hidden'),
+  inicializarContador()
 }
 
 
@@ -86,7 +89,20 @@ const buscarMatchesInicial = () => {
 }
 
 const generarCelda = (x, y, array) => {
-  const tamanio = 50
+  let tamanio = 50
+
+  
+  if (tamanioPantallaCelular3.matches) {
+    tamanio = 50
+ }
+
+  if (tamanioPantallaCelular1.matches) {
+     tamanio = 45
+  }
+
+  if (tamanioPantallaCelular2.matches) {
+    tamanio = 40
+  }
 
   const celda = document.createElement('div')
   celda.dataset.x = x
@@ -99,7 +115,23 @@ const generarCelda = (x, y, array) => {
 }
 
 const agregarGrillaAHTML = (ancho) => {
-  const anchoDeGrilla = 50 * ancho
+  let anchoDeGrilla = 50 * ancho
+
+  
+  if (tamanioPantallaCelular3.matches) {
+    anchoDeGrilla = 50 * ancho
+ }
+  
+  if (tamanioPantallaCelular1.matches) {
+    anchoDeGrilla = 45 * ancho
+ }
+
+ if (tamanioPantallaCelular2.matches) {
+  anchoDeGrilla = 40 * ancho
+ }
+
+
+
   grilla.style.width = `${anchoDeGrilla}px`
   grilla.innerHTML = ""
   for (let i = 0; i < listaDeAnimales.length; i++) {
@@ -122,14 +154,15 @@ const iniciarJuego = () => {
   parrafoSegundos.textContent = "0 : 30"
   let limiteDeTiempo = new Date()
   limiteDeTiempo.setSeconds(limiteDeTiempo.getSeconds() + 30)
-  comenzarCuentaRegresiva(limiteDeTiempo)
-  // inicializarContador()
+  // comenzarCuentaRegresiva(limiteDeTiempo)
+ 
 }
 
 nuevoJuego.onclick = () => {
   iniciarJuego()
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden')
+  inicializarContador()
 }
 
 botonBienvenida.onclick = () => {
@@ -140,7 +173,6 @@ botonBienvenida.onclick = () => {
 
 
 //Timer
-
 const obtenerTiempoFaltante = (limiteDeTiempo) => {
   let fechaActual = new Date()
   let tiempoFaltante = ((limiteDeTiempo - fechaActual) + 1000) / 1000
@@ -173,7 +205,6 @@ const comenzarCuentaRegresiva = (limiteDeTiempo) => {
 
 }
 
-
 const seleccionarItem = (e) => {
   let primeraCeldaSeleccionada = document.querySelector(".remarcar")
   //Si ya existe una celda seleccionada
@@ -182,6 +213,12 @@ const seleccionarItem = (e) => {
       e.target.classList.add(".segundaCelda")
       intercambiarCeldas(primeraCeldaSeleccionada, e.target)
       obtenerMatches()
+      if (obtenerMatches() === false) {
+        let primera = document.querySelector("segunda Celda")
+        let segunda = document.querySelector("remarcar")
+
+        intercambiarCeldas(primera,segunda)
+      }
     }
     else {
       primeraCeldaSeleccionada.classList.remove("remarcar")
@@ -211,8 +248,6 @@ const sonAdyacentes = (celda1, celda2) => {
     return false
   }
 }
-
-
 
 const intercambiarCeldas = (celda1, celda2) => {
   const datax1 = Number(celda1.dataset.x)
@@ -276,25 +311,21 @@ const reacomodarFilas = (matchesHorizontales) => {
     //Caso en que el match sea en la primera fila
     if (numeroDeDescensos === 0) {
       agregarCeldaEnFilaSuperior(numColumna)
-
     } else {
 
       let k = numeroDeDescensos
 
       for (let j = 0; j < numeroDeDescensos; j++) {
-
         let celdaADescender = document.querySelector(`div[data-x='${k - 1}'][data-y='${matchesHorizontales[i][1]}']`)
         k--
-
         descenderCelda(celdaADescender)
       }
-
       agregarCeldaEnFilaSuperior(numColumna)
-
     }
   }
   obtenerMatches()
 }
+
 
 agregarCeldaEnFilaSuperior = (numColumna) => {
   //agrega el animal en la matriz
@@ -304,6 +335,7 @@ agregarCeldaEnFilaSuperior = (numColumna) => {
   let celdaAlTope = generarCelda(0, numColumna, listaDeAnimales)
   grilla.appendChild(celdaAlTope)
 }
+
 
 const reacomodarColumnas = (matchesVerticales) => {
   let cantidadDeCeldasEncima = matchesVerticales[0][0]
@@ -315,9 +347,7 @@ const reacomodarColumnas = (matchesVerticales) => {
     for (let j = 0; j < 3; j++) {
       descenderCelda(celdaADescender)
     }
-
   }
-
   for (let i = 0; i < 3; i++) {
 
     listaDeAnimales[i][matchesVerticales[0][1]] = obtenerAnimalAlAzar(items)
@@ -325,7 +355,6 @@ const reacomodarColumnas = (matchesVerticales) => {
     let celda = generarCelda(i, matchesVerticales[0][1], listaDeAnimales)
     grilla.appendChild(celda)
   }
-
 }
 
 
@@ -355,7 +384,6 @@ const obtenerMatches = () => {
       // else {
       //   intercambiarCeldas(primera,segunda)
       // }
-
 
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
 
@@ -438,7 +466,6 @@ const obtenerMatches = () => {
 
 // }
 
-
 const puntosTotales = () => {
   let puntajeVertical = 0
   let puntajeHorizontal = 0
@@ -460,18 +487,14 @@ puntosTotales()
 // reacomodarFilas(matchesHorizontales)
 // reacomodarFilas(matchesVerticales)
 
-
-
-
-
 function inicializarContador() {
   puntaje.innerHTML = 0
 }
 
-
 const mostrarModalFinDeJuego = () => {
   modalFinDeJuego.classList.remove("hidden")
   overlay.classList.remove('hidden')
+  inicializarContador()
 }
 
 // const obtenerMatchesVerticales = () => {
