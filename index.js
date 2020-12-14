@@ -459,16 +459,6 @@ const mostrarModalFinDeJuego = () => {
   overlay.classList.remove('hidden')
 }
 
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-=======
 // const obtenerMatchesVerticales = () => {
 
 /*
@@ -485,7 +475,6 @@ const mostrarModalFinDeJuego = () => {
 //     }
 //   }
 // }
->>>>>>> e34f0a0daf8f35f22a125d0e3f3048b7b62e158e
 // const ocultarBotones = () => {
 //     botonFacil.classList.add("ocultar");
 //     botonMedio.classList.add("ocultar");
@@ -525,5 +514,3 @@ const mostrarModalFinDeJuego = () => {
 // }
 }
 */
-
-
