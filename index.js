@@ -5,6 +5,8 @@ const modalFinDeJuego = document.getElementById('fin-de-juego')
 const parrafoSegundos = document.getElementById("segundos")
 const botonBuscarMatches = document.getElementById("buscar-matches")
 const reiniciarJuego = document.getElementById("reiniciar-juego")
+const puntaje = document.getElementById("puntaje")
+const puntajeFinal = document.getElementById("puntaje-final")
 
 
 
@@ -28,14 +30,15 @@ botonInfo.onclick = () => {
 }
 
 botonReiniciar.onclick = () => {
-
   iniciarJuego();
+  PuntosTotales = 0
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden')
 }
 
 reiniciarJuego.onclick = () => {
   iniciarJuego()
+  PuntosTotales = 0
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden')
 }
@@ -58,8 +61,6 @@ const obtenerAnimalAlAzar = (items) => {
 };
 
 const crearGrilla = (ancho, alto) => {
-
-  console.log(listaDeAnimales)
   for (let i = 0; i < ancho; i++) {
     listaDeAnimales[i] = [];
     for (let j = 0; j < alto; j++) {
@@ -86,8 +87,6 @@ const buscarMatchesInicial = () => {
   return false
 }
 
-
-
 const generarCelda = (x, y, array) => {
   const tamanio = 50
 
@@ -99,7 +98,6 @@ const generarCelda = (x, y, array) => {
   celda.style.left = `${y * tamanio}px`
   celda.addEventListener('click', seleccionarItem)
   return celda
-
 }
 
 const agregarGrillaAHTML = (ancho) => {
@@ -121,36 +119,28 @@ const iniciarJuego = () => {
   }
   while
     (buscarMatchesInicial() === true) {
-
   }
   agregarGrillaAHTML(6)
   parrafoSegundos.textContent = "0 : 30"
   let limiteDeTiempo = new Date()
   limiteDeTiempo.setSeconds(limiteDeTiempo.getSeconds() + 30)
-
   comenzarCuentaRegresiva(limiteDeTiempo)
+  inicializarContador()
 }
 
 nuevoJuego.onclick = () => {
   iniciarJuego()
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden')
-
 }
-
 
 botonBienvenida.onclick = () => {
   modalBienvenida.classList.add('hidden')
   overlay.classList.add('hidden')
   iniciarJuego();
-
 }
 
-const mostrarModalFinDeJuego = () => {
-  modalFinDeJuego.classList.remove("hidden")
-  overlay.classList.remove('hidden')
 
-}
 //Timer
 
 const obtenerTiempoFaltante = (limiteDeTiempo) => {
@@ -163,7 +153,6 @@ const obtenerTiempoFaltante = (limiteDeTiempo) => {
   else {
     return segundosFaltantes
   }
-
 }
 
 const comenzarCuentaRegresiva = (limiteDeTiempo) => {
@@ -175,14 +164,13 @@ const comenzarCuentaRegresiva = (limiteDeTiempo) => {
     let segundos = obtenerTiempoFaltante(limiteDeTiempo)
     parrafoSegundos.textContent = "0 : " + segundos
 
-
     if (segundos === "00") {
       //clearInterval cancela una acción reiterativa que se inició mediante una llamada a setInterval.
       //(actualizadorDeTiempo) es el identificador de la acción reiterativa que se desea cancelar.
       clearInterval(actualizadorDeTiempo)
       mostrarModalFinDeJuego()
-    }
 
+    }
   }, 1000)
 
 }
@@ -193,6 +181,7 @@ const seleccionarItem = (e) => {
   //Si ya existe una celda seleccionada
   if (primeraCeldaSeleccionada != null) {
     if (sonAdyacentes(primeraCeldaSeleccionada, e.target)) {
+      e.target.classList.add(".segundaCelda")
       intercambiarCeldas(primeraCeldaSeleccionada, e.target)
       obtenerMatches()
     }
@@ -202,6 +191,7 @@ const seleccionarItem = (e) => {
     }
 
   }
+  // Si no hay ninguna celda seleccionada
   else (
     e.target.classList.add("remarcar")
   )
@@ -222,8 +212,9 @@ const sonAdyacentes = (celda1, celda2) => {
   else {
     return false
   }
-
 }
+
+
 
 const intercambiarCeldas = (celda1, celda2) => {
   const datax1 = Number(celda1.dataset.x)
@@ -245,7 +236,6 @@ const intercambiarCeldas = (celda1, celda2) => {
     celda2.style.left = `${datay1 * tamanio}px`
     celda1.dataset.y = datay2
     celda2.dataset.y = datay1
-
   }
 
   else if (datay1 === datay2 && (datax1 === datax2 + 1 || datax1 === datax2 - 1)) {
@@ -253,21 +243,22 @@ const intercambiarCeldas = (celda1, celda2) => {
     celda2.style.top = `${datax1 * tamanio}px`
     celda1.dataset.x = datax2
     celda2.dataset.x = datax1
-
   }
-
 }
 
 // Obtener Matches y desaparecerlos
 
 const deseleccionarItem = () => {
   let celda = document.querySelector(".remarcar")
-  celda.classList.remove("remarcar")
+  if (celda != null) {
+
+    celda.classList.remove("remarcar")
+  }
 }
+
 const descenderCelda = (celda) => {
   const x = Number(celda.dataset.x)
   const y = Number(celda.dataset.y)
-
   const tamanio = 50
 
   // aqui modifico la grilla en JS
@@ -275,39 +266,84 @@ const descenderCelda = (celda) => {
 
   //aqui modifico la grilla en HTML
   celda.style.top = `${(x * tamanio) + 50}px`
-
   celda.dataset.x = x + 1
-
-
 }
+
 
 const reacomodarFilas = (matchesHorizontales) => {
   for (let i = 0; i < matchesHorizontales.length; i++) {
     let numeroDeDescensos = matchesHorizontales[i][0]
-    for (let j = 0; j < numeroDeDescensos; j++) {
-      let celdaADescender = document.querySelector(`div[data-x='${j}'][data-y='${matchesHorizontales[i][1]}']`)
+    let numColumna = matchesHorizontales[i][1]
+
+    //Caso en que el match sea en la primera fila
+    if (numeroDeDescensos === 0) {
+      agregarCeldaEnFilaSuperior(numColumna)
+
+    } else {
+
+      let k = numeroDeDescensos
+
+      for (let j = 0; j < numeroDeDescensos; j++) {
+
+        let celdaADescender = document.querySelector(`div[data-x='${k - 1}'][data-y='${matchesHorizontales[i][1]}']`)
+        k--
+
+        descenderCelda(celdaADescender)
+      }
+
+      agregarCeldaEnFilaSuperior(numColumna)
+
+    }
+  }
+  obtenerMatches()
+}
+
+agregarCeldaEnFilaSuperior = (numColumna) => {
+  //agrega el animal en la matriz
+  listaDeAnimales[0][numColumna] = obtenerAnimalAlAzar(items)
+
+  //crea el div y lo agrega al HTML
+  let celdaAlTope = generarCelda(0, numColumna, listaDeAnimales)
+  grilla.appendChild(celdaAlTope)
+}
+
+const reacomodarColumnas = (matchesVerticales) => {
+  let cantidadDeCeldasEncima = matchesVerticales[0][0]
+  let k = cantidadDeCeldasEncima
+  for (let i = 0; i < cantidadDeCeldasEncima; i++) {
+
+    let celdaADescender = document.querySelector(`div[data-x='${k - 1}'][data-y='${matchesVerticales[i][1]}']`)
+    k--
+    for (let j = 0; j < 3; j++) {
       descenderCelda(celdaADescender)
     }
 
-  
   }
 
+  for (let i = 0; i < 3; i++) {
+
+    listaDeAnimales[i][matchesVerticales[0][1]] = obtenerAnimalAlAzar(items)
+
+    let celda = generarCelda(i, matchesVerticales[0][1], listaDeAnimales)
+    grilla.appendChild(celda)
+  }
 
 }
 
-
-
-const reacomodarColumnas = () => { }
+let PuntosTotales = 0
 
 const obtenerMatches = () => {
 
-
   let matchesHorizontales = [];
   let matchesVerticales = [];
+  let matchesAcumuladosHorizontales = 0
+  let matchesAcumuladosVerticales = 0
 
   for (let i = 0; i < listaDeAnimales.length; i++) {
-
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
+
+      let primera = document.querySelector(".segundaCelda")
+      let segunda = document.querySelector(".remarcar")
 
       if (listaDeAnimales[i][j] === listaDeAnimales[i][j + 1] && listaDeAnimales[i][j] === listaDeAnimales[i][j + 2]) {
 
@@ -315,7 +351,13 @@ const obtenerMatches = () => {
         matchesHorizontales.push([i, j + 1])
         matchesHorizontales.push([i, j + 2])
 
+        matchesAcumuladosHorizontales += 1
       }
+
+      // else {
+      //   intercambiarCeldas(primera,segunda)
+      // }
+
 
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
 
@@ -323,39 +365,101 @@ const obtenerMatches = () => {
         matchesVerticales.push([i + 1, j])
         matchesVerticales.push([i + 2, j])
 
+        matchesAcumuladosVerticales += 1
       }
 
-    }
+      // else {
+      //   intercambiarCeldas(primera,segunda)
+      // }
 
+    }
   }
+
+  //solo deseleccionar item si se produjo un match
+  if (matchesHorizontales.length > 0 || matchesVerticales.length > 0) {
+    deseleccionarItem()
+  }
+
 
   const obtenerCuadrado = (arr) => {
     return document.querySelector(`div[data-x='${arr[0]}'][data-y='${arr[1]}']`)
   }
 
-
   const desaparecerAnimal = (celda) => {
-    celda.innerHTML = ""
+    if (celda != null)
+      grilla.removeChild(celda)
 
   }
 
   for (let i = 0; i < matchesHorizontales.length; i++) {
     const celda = obtenerCuadrado(matchesHorizontales[i])
     desaparecerAnimal(celda)
-
   }
   for (let i = 0; i < matchesVerticales.length; i++) {
     const celda = obtenerCuadrado(matchesVerticales[i])
     desaparecerAnimal(celda)
-
-
   }
-  deseleccionarItem()
-  reacomodarFilas(matchesHorizontales)
+
+  //reacomodar filas y columnas si se produjo un match
+  if (matchesHorizontales.length > 0) {
+    reacomodarFilas(matchesHorizontales)
+  }
+  if (matchesVerticales.length > 0) {
+    reacomodarColumnas(matchesVerticales)
+  }
+
+
+if(matchesAcumuladosHorizontales>0 || matchesAcumuladosVerticales>0){
+  let puntosGanados = obtenerPuntos(matchesAcumuladosHorizontales,matchesAcumuladosVerticales)
+  PuntosTotales = PuntosTotales+puntosGanados
+  modificarPuntajeHTML(PuntosTotales)
+}
+  
+
 }
 
 
 
+const obtenerPuntos = (cantidadMatchesHorizontales, cantidadDeMatchesVerticales) => {
+ 
+  let puntajeVertical = 0 
+  let puntajeHorizontal = 0
+  
+  for (let i = 0; i < cantidadDeMatchesVerticales; i++) {
+    puntajeVertical += 100
+  }
+
+  for (let i = 0; i < cantidadMatchesHorizontales; i++) {
+    puntajeHorizontal += 100
+  }
+
+  let puntajeTotal = puntajeHorizontal + puntajeVertical
+  
+  return puntajeTotal
+
+
+}
+
+const modificarPuntajeHTML=(puntajeTotal)=>{
+
+  puntaje.innerHTML = puntajeTotal
+  puntajeFinal.innerHTML = puntajeTotal
+
+}
+
+const inicializarContador = () => {
+  puntajeVertical = 0
+  puntajeHorizontal = 0
+  return puntaje.innerHTML = puntajeVertical + puntajeHorizontal
+}
+
+
+const mostrarModalFinDeJuego = () => {
+  modalFinDeJuego.classList.remove("hidden")
+  overlay.classList.remove('hidden')
+}
+
+<<<<<<< HEAD
 
 
 
@@ -364,31 +468,44 @@ const obtenerMatches = () => {
 
 
 
+=======
+// const obtenerMatchesVerticales = () => {
 
+/*
+// const obtenerMatchesVerticales = () => {
+//   for (let i = 0; i < listaDeAnimales.length; i++) {
+//     for (let j = 0; j < listaDeAnimales[i]; j++) {
+//             // const primerCeldaVertical = document.querySelector(`div[data-x = '${i}'][data-y = '${j}']`)
+//             // const segundaCeldaVertical = document.querySelector(`div[data-x = '${i+1}'][data-y = '${j}']`)
+//             // const tercerCeldaVertical = document.querySelector(`div[data-x = '${i+2}'][data-y = '${j}']`)
+//             // primerCeldaVertical.style.backgroundcolor ='#5454f1'
+//             // segundaCeldaVertical.style.backgroundcolor ='#5454f1'
+//             // tercerCeldaVertical.style.backgroundcolor ='#5454f1'
+//       }
+//     }
+//   }
+// }
+>>>>>>> e34f0a0daf8f35f22a125d0e3f3048b7b62e158e
 // const ocultarBotones = () => {
 //     botonFacil.classList.add("ocultar");
 //     botonMedio.classList.add("ocultar");
 //     botonDificil.classList.add("ocultar");
 // };
-
 // botonFacil.onclick = () => {
 //     crearGrilla(6, 6);
 //     ocultarBotones();
 //     reiniciarJuego.classList.add("facil");
 // };
-
 // botonMedio.onclick = () => {
 //     crearGrilla(8, 8);
 //     ocultarBotones();
 //     reiniciarJuego.classList.add("medio");
 // };
-
 // botonDificil.onclick = () => {
 //     crearGrilla(10, 10);
 //     ocultarBotones();
 //     reiniciarJuego.classList.add("dificil");
 // };
-
 // nuevoJuego.onclick = () => {
 //     botonFacil.classList.toggle("ocultar");
 //     botonMedio.classList.toggle("ocultar");
@@ -397,9 +514,6 @@ const obtenerMatches = () => {
 //     reiniciarJuego.classList.remove("medio");
 //     reiniciarJuego.classList.remove("dificil");
 // };
-
-
-
 // reiniciarJuego.onclick = () => {
 //   if (reiniciarJuego.classList.contains("facil")) {
 //     crearGrilla(6, 6);
@@ -409,5 +523,7 @@ const obtenerMatches = () => {
 //     crearGrilla(10, 10);
 //   }
 // }
+}
+*/
 
 
