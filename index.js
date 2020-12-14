@@ -357,29 +357,6 @@ const obtenerMatches = () => {
 
 
 
-// const obtenerMatchesVerticales = () => {
-
-//   for (let i = 0; i < listaDeAnimales.length; i++) {
-//     for (let j = 0; j < listaDeAnimales[i]; j++) {
-
-
-//             // const primerCeldaVertical = document.querySelector(`div[data-x = '${i}'][data-y = '${j}']`)
-//             // const segundaCeldaVertical = document.querySelector(`div[data-x = '${i+1}'][data-y = '${j}']`)
-//             // const tercerCeldaVertical = document.querySelector(`div[data-x = '${i+2}'][data-y = '${j}']`)
-
-//             // primerCeldaVertical.style.backgroundcolor ='#5454f1'
-//             // segundaCeldaVertical.style.backgroundcolor ='#5454f1'
-//             // tercerCeldaVertical.style.backgroundcolor ='#5454f1'
-
-
-//       }
-
-
-//     }
-
-//   }
-
-// }
 
 
 
