@@ -282,6 +282,7 @@ const deseleccionarItem = () => {
   }
 }
 
+// Hace descender los items cuando hay matches y quedan espacios vacios
 const descenderCelda = (celda) => {
   const x = Number(celda.dataset.x)
   const y = Number(celda.dataset.y)
@@ -296,16 +297,19 @@ const descenderCelda = (celda) => {
 }
 
 
+ // MATCHES HORIZONTALES
+// Esta funcion sirve para hacer descender los items cuando hay un match horizontal 
+// y agrega elementos nuevos en la fila superior
 const reacomodarFilas = (matchesHorizontales) => {
   for (let i = 0; i < matchesHorizontales.length; i++) {
     let numeroDeDescensos = matchesHorizontales[i][0]
     let numColumna = matchesHorizontales[i][1]
 
-    //Caso en que el match sea en la primera fila
+    //Caso en que el match sea en la primera fila (fila 0)
     if (numeroDeDescensos === 0) {
       agregarCeldaEnFilaSuperior(numColumna)
     } else {
-
+     // caso en que el match sea en una fila inferior a la primera (fila 0)
       let k = numeroDeDescensos
 
       for (let j = 0; j < numeroDeDescensos; j++) {
@@ -319,7 +323,7 @@ const reacomodarFilas = (matchesHorizontales) => {
   obtenerMatches()
 }
 
-
+// Crea un nuevo item para agregarlo a partir en la fila 0
 agregarCeldaEnFilaSuperior = (numColumna) => {
   //agrega el animal en la matriz
   listaDeAnimales[0][numColumna] = obtenerAnimalAlAzar(items)
@@ -330,7 +334,10 @@ agregarCeldaEnFilaSuperior = (numColumna) => {
 }
 
 
-const reacomodarColumnas = (matchesVerticales) => {
+
+// MATCHES VERTICALES
+// Desciende items ya existentes cuando hay un match vertical
+  const reacomodarColumnas = (matchesVerticales) => {
   let cantidadDeCeldasEncima = matchesVerticales[0][0]
   let k = cantidadDeCeldasEncima
   for (let i = 0; i < cantidadDeCeldasEncima; i++) {
@@ -351,9 +358,12 @@ const reacomodarColumnas = (matchesVerticales) => {
 }
 
 
+
+// Variables para acumular cantidad de matches (1 x cada combinacion)
 let matchesAcumuladosHorizontales = 0
 let matchesAcumuladosVerticales = 0
 
+// Funcion que revisa si hay coincidencia de 3 o mas items
 const obtenerMatches = () => {
 
   let matchesHorizontales = [];
@@ -361,9 +371,6 @@ const obtenerMatches = () => {
 
   for (let i = 0; i < listaDeAnimales.length; i++) {
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
-
-      // let primera = document.querySelector(".segundaCelda")
-      // let segunda = document.querySelector(".remarcar")
 
       if (listaDeAnimales[i][j] === listaDeAnimales[i][j + 1] && listaDeAnimales[i][j] === listaDeAnimales[i][j + 2]) {
 
@@ -374,10 +381,6 @@ const obtenerMatches = () => {
         matchesAcumuladosHorizontales += 1
       }
 
-      // else {
-      //   intercambiarCeldas(primera,segunda)
-      // }
-
       if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
 
         matchesVerticales.push([i, j])
@@ -386,23 +389,21 @@ const obtenerMatches = () => {
 
         matchesAcumuladosVerticales += 1
       }
-
-      // else {
-      //   intercambiarCeldas(primera,segunda)
-      // }
     }
-  
   }
+
+  //Declaramos las variables de los elementos actualmente seleccionados
       let primera = document.querySelector(".segundaCelda")
       let segunda = document.querySelector(".remarcar")
       
+  // Devolvemos los items a sus lugares si no hay matches
   if (matchesHorizontales.length == 0 && matchesVerticales.length == 0) {
     setTimeout(() => {intercambiarCeldas(primera,segunda)}, 500)
     primera.classList.remove("remarcar")
     segunda.classList.remove("segundaCelda")
     console.log(primera)  
     console.log(segunda)  
-}
+  }
     puntosTotales()
 
   //solo deseleccionar item si se produjo un match
@@ -469,6 +470,8 @@ const obtenerMatches = () => {
 
 // }
 
+
+// Acumulador de puntos por cada match
 const puntosTotales = () => {
   let puntajeVertical = 0
   let puntajeHorizontal = 0
@@ -490,7 +493,8 @@ puntosTotales()
 // reacomodarFilas(matchesHorizontales)
 // reacomodarFilas(matchesVerticales)
 
-function inicializarContador() {
+
+const inicializarContador = () => {
   puntaje.innerHTML = 0
 }
 
