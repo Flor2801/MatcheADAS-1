@@ -88,10 +88,10 @@ const buscarMatchesInicial = () => {
   return false
 }
 
+
 const generarCelda = (x, y, array) => {
   let tamanio = 50
 
-  
   if (tamanioPantallaCelular3.matches) {
     tamanio = 50
  }
@@ -117,7 +117,6 @@ const generarCelda = (x, y, array) => {
 const agregarGrillaAHTML = (ancho) => {
   let anchoDeGrilla = 50 * ancho
 
-  
   if (tamanioPantallaCelular3.matches) {
     anchoDeGrilla = 50 * ancho
  }
