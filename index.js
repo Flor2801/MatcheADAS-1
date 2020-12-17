@@ -34,14 +34,14 @@ botonReiniciar.onclick = () => {
   iniciarJuego();
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden'),
-  inicializarContador()
+    inicializarContador()
 }
 
 reiniciarJuego.onclick = () => {
   iniciarJuego()
   modalFinDeJuego.classList.add("hidden")
   overlay.classList.add('hidden'),
-  inicializarContador()
+    inicializarContador()
 }
 
 
@@ -94,10 +94,10 @@ const generarCelda = (x, y, array) => {
 
   if (tamanioPantallaCelular3.matches) {
     tamanio = 50
- }
+  }
 
   if (tamanioPantallaCelular1.matches) {
-     tamanio = 45
+    tamanio = 45
   }
 
   if (tamanioPantallaCelular2.matches) {
@@ -119,15 +119,15 @@ const agregarGrillaAHTML = (ancho) => {
 
   if (tamanioPantallaCelular3.matches) {
     anchoDeGrilla = 50 * ancho
- }
-  
+  }
+
   if (tamanioPantallaCelular1.matches) {
     anchoDeGrilla = 45 * ancho
- }
+  }
 
- if (tamanioPantallaCelular2.matches) {
-  anchoDeGrilla = 40 * ancho
- }
+  if (tamanioPantallaCelular2.matches) {
+    anchoDeGrilla = 40 * ancho
+  }
 
 
 
@@ -154,7 +154,7 @@ const iniciarJuego = () => {
   let limiteDeTiempo = new Date()
   limiteDeTiempo.setSeconds(limiteDeTiempo.getSeconds() + 30)
   // comenzarCuentaRegresiva(limiteDeTiempo)
- 
+
 }
 
 nuevoJuego.onclick = () => {
@@ -203,7 +203,7 @@ const comenzarCuentaRegresiva = (limiteDeTiempo) => {
   }, 1000)
 
 }
-
+let hayQueIntercambiar = null
 const seleccionarItem = (e) => {
   let primeraCeldaSeleccionada = document.querySelector(".remarcar")
   //Si ya existe una celda seleccionada
@@ -211,6 +211,7 @@ const seleccionarItem = (e) => {
     if (sonAdyacentes(primeraCeldaSeleccionada, e.target)) {
       e.target.classList.add("segundaCelda")
       intercambiarCeldas(primeraCeldaSeleccionada, e.target)
+      hayQueIntercambiar = true
       obtenerMatches()
     }
     else {
@@ -296,7 +297,7 @@ const descenderCelda = (celda) => {
 }
 
 
- // MATCHES HORIZONTALES
+// MATCHES HORIZONTALES
 // Esta funcion sirve para hacer descender los items cuando hay un match horizontal 
 // y agrega elementos nuevos en la fila superior
 const reacomodarFilas = (matchesHorizontales) => {
@@ -306,9 +307,10 @@ const reacomodarFilas = (matchesHorizontales) => {
 
     //Caso en que el match sea en la primera fila (fila 0)
     if (numeroDeDescensos === 0) {
-      agregarCeldaEnFilaSuperior(numColumna)
+  
+     setTimeout(() => { agregarCeldaEnFilaSuperior(numColumna)},500)
     } else {
-     // caso en que el match sea en una fila inferior a la primera (fila 0)
+      // caso en que el match sea en una fila inferior a la primera (fila 0)
       let k = numeroDeDescensos
 
       for (let j = 0; j < numeroDeDescensos; j++) {
@@ -316,9 +318,12 @@ const reacomodarFilas = (matchesHorizontales) => {
         k--
         descenderCelda(celdaADescender)
       }
-      agregarCeldaEnFilaSuperior(numColumna)
+       
+     setTimeout(() => { agregarCeldaEnFilaSuperior(numColumna)},500)
+
     }
   }
+  hayQueIntercambiar = false
   obtenerMatches()
 }
 
@@ -336,7 +341,7 @@ agregarCeldaEnFilaSuperior = (numColumna) => {
 
 // MATCHES VERTICALES
 // Desciende items ya existentes cuando hay un match vertical
-  const reacomodarColumnas = (matchesVerticales) => {
+const reacomodarColumnas = (matchesVerticales) => {
   let cantidadDeCeldasEncima = matchesVerticales[0][0]
   let k = cantidadDeCeldasEncima
   for (let i = 0; i < cantidadDeCeldasEncima; i++) {
@@ -352,8 +357,12 @@ agregarCeldaEnFilaSuperior = (numColumna) => {
     listaDeAnimales[i][matchesVerticales[0][1]] = obtenerAnimalAlAzar(items)
 
     let celda = generarCelda(i, matchesVerticales[0][1], listaDeAnimales)
-    grilla.appendChild(celda)
+     
+    setTimeout(() => {grilla.appendChild(celda)},500)
+    
   }
+  hayQueIntercambiar = false
+  obtenerMatches()
 }
 
 
@@ -392,18 +401,18 @@ const obtenerMatches = () => {
   }
 
   //Declaramos las variables de los elementos actualmente seleccionados
-      let primera = document.querySelector(".segundaCelda")
-      let segunda = document.querySelector(".remarcar")
-      
+  let primera = document.querySelector(".remarcar")
+  let segunda = document.querySelector(".segundaCelda")
+
   // Devolvemos los items a sus lugares si no hay matches
-  if (matchesHorizontales.length == 0 && matchesVerticales.length == 0) {
-    setTimeout(() => {intercambiarCeldas(primera,segunda)}, 500)
+  if (matchesHorizontales.length == 0 && matchesVerticales.length == 0 && hayQueIntercambiar) {
+    setTimeout(() => { intercambiarCeldas(primera, segunda) }, 500)
     primera.classList.remove("remarcar")
     segunda.classList.remove("segundaCelda")
-    console.log(primera)  
-    console.log(segunda)  
+    console.log(primera)
+    console.log(segunda)
   }
-    puntosTotales()
+  puntosTotales()
 
   //solo deseleccionar item si se produjo un match
   if (matchesHorizontales.length > 0 || matchesVerticales.length > 0) {
@@ -436,19 +445,19 @@ const obtenerMatches = () => {
     reacomodarColumnas(matchesVerticales)
   }
 
-// if(matchesAcumuladosHorizontales>0 || matchesAcumuladosVerticales>0){
-//   let puntosGanados = obtenerPuntos(matchesAcumuladosHorizontales,matchesAcumuladosVerticales)
-//   PuntosTotales = PuntosTotales+puntosGanados
-//   modificarPuntajeHTML(PuntosTotales)
-// }
+  // if(matchesAcumuladosHorizontales>0 || matchesAcumuladosVerticales>0){
+  //   let puntosGanados = obtenerPuntos(matchesAcumuladosHorizontales,matchesAcumuladosVerticales)
+  //   PuntosTotales = PuntosTotales+puntosGanados
+  //   modificarPuntajeHTML(PuntosTotales)
+  // }
 
 }
 
 // const obtenerPuntos = (cantidadMatchesHorizontales, cantidadDeMatchesVerticales) => {
- 
+
 //   let puntajeVertical = 0 
 //   let puntajeHorizontal = 0
-  
+
 //   for (let i = 0; i < cantidadDeMatchesVerticales; i++) {
 //     puntajeVertical += 100
 //   }
@@ -476,16 +485,16 @@ const puntosTotales = () => {
   let puntajeHorizontal = 0
 
   for (let i = 0; i < matchesAcumuladosVerticales; i++) {
-  puntajeVertical += 100
+    puntajeVertical += 100
   }
 
   for (let i = 0; i < matchesAcumuladosHorizontales; i++) {
-  puntajeHorizontal += 100
+    puntajeHorizontal += 100
   }
-  
+
   puntaje.innerHTML = puntajeVertical + puntajeHorizontal
   puntajeFinal.innerHTML = puntajeVertical + puntajeHorizontal
-  }
+}
 
 puntosTotales()
 // deseleccionarItem()
