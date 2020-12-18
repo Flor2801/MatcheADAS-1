@@ -203,7 +203,9 @@ const comenzarCuentaRegresiva = (limiteDeTiempo) => {
   }, 1000)
 
 }
-let hayQueIntercambiar = null
+//este booleano se utiliza en la funcion obtenerMatches() para indicar que, si no hubo matches, tengo que ejecutar
+//el bloque de código que intercambia las celdas, es decir tengo que devolver las celdas a su lugar original.
+let seEjecutoIntercambiarItem = null
 const seleccionarItem = (e) => {
   let primeraCeldaSeleccionada = document.querySelector(".remarcar")
   //Si ya existe una celda seleccionada
@@ -211,7 +213,7 @@ const seleccionarItem = (e) => {
     if (sonAdyacentes(primeraCeldaSeleccionada, e.target)) {
       e.target.classList.add("segundaCelda")
       intercambiarCeldas(primeraCeldaSeleccionada, e.target)
-      hayQueIntercambiar = true
+      seEjecutoIntercambiarItem = true
       obtenerMatches()
     }
     else {
@@ -298,7 +300,7 @@ const descenderCelda = (celda) => {
 
 
 // MATCHES HORIZONTALES
-// Esta funcion sirve para hacer descender los items cuando hay un match horizontal 
+// Esta funcion se utiliza para hacer descender los items cuando hay un match horizontal 
 // y agrega elementos nuevos en la fila superior
 const reacomodarFilas = (matchesHorizontales) => {
   for (let i = 0; i < matchesHorizontales.length; i++) {
@@ -323,7 +325,10 @@ const reacomodarFilas = (matchesHorizontales) => {
 
     }
   }
-  hayQueIntercambiar = false
+  //este booleano se va a utilizar en la funcion obtenerMatches()para indicar que NO tengo que ejecutar el código
+  //que intercambia las celdas ya que hubo un match anteriormente.
+seEjecutoIntercambiarItem= false
+//llamo a la funcion obtenerMatches() para verificar si,despues de reacomodar las celdas hay un match nuevo.
   obtenerMatches()
 }
 
@@ -361,7 +366,10 @@ const reacomodarColumnas = (matchesVerticales) => {
     setTimeout(() => {grilla.appendChild(celda)},500)
     
   }
-  hayQueIntercambiar = false
+    //este booleano se va a utilizar en la funcion obtenerMatches()para indicar que NO tengo que ejecutar el código
+  //que intercambia las celdas ya que hubo un match anteriormente.
+  seEjecutoIntercambiarItem= false
+  //llamo a la funcion obtenerMatches() para verificar si,despues de reacomodar las celdas hay un match nuevo.
   obtenerMatches()
 }
 
@@ -404,13 +412,14 @@ const obtenerMatches = () => {
   let primera = document.querySelector(".remarcar")
   let segunda = document.querySelector(".segundaCelda")
 
-  // Devolvemos los items a sus lugares si no hay matches
-  if (matchesHorizontales.length == 0 && matchesVerticales.length == 0 && hayQueIntercambiar) {
+  // Devolvemos los items a sus lugares si no hay matches y si la funcion que se ejecutó anteriormente fue seleccionarItem()
+  //Esto ultimo se debe a que la funcion obtnerMatches puede ser llamada desde seleccionarItem(),reacomodarFilas() y reacomodarColumna(). En estos dos últimos casos 
+  //no tiene sentido devolver los items a su lugar.
+  if (matchesHorizontales.length == 0 && matchesVerticales.length == 0 && seEjecutoIntercambiarItem) {
     setTimeout(() => { intercambiarCeldas(primera, segunda) }, 500)
     primera.classList.remove("remarcar")
     segunda.classList.remove("segundaCelda")
-    console.log(primera)
-    console.log(segunda)
+
   }
   puntosTotales()
 
