@@ -153,7 +153,7 @@ const iniciarJuego = () => {
   parrafoSegundos.textContent = "0 : 30"
   let limiteDeTiempo = new Date()
   limiteDeTiempo.setSeconds(limiteDeTiempo.getSeconds() + 30)
-  // comenzarCuentaRegresiva(limiteDeTiempo)
+  comenzarCuentaRegresiva(limiteDeTiempo)
 
 }
 
