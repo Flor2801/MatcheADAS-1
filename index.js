@@ -16,11 +16,10 @@ const nuevoJuego = document.getElementById("nuevo-juego");
 const botonInfo = document.querySelector(".info");
 const botonReiniciar = document.querySelector(".reiniciar");
 
-let tamanioPantallaTablet = window.matchMedia(
-  "(min-width: 400px) and (max-width: 700px)"
-);
+let tamanioPantallaTablet = window.matchMedia("(min-width: 400px) and (max-width: 700px)");
 let tamanioPantallaCelular = window.matchMedia("(max-width: 399px)");
 let tamanioPantallaEscritorio = window.matchMedia("(min-width: 701px)");
+
 
 let actualizadorDeTiempo = null;
 
@@ -107,10 +106,12 @@ const buscarMatchesInicial = () => {
   return false;
 };
 
-
 const generarCelda = (x, y, array) => {
-  let tamanio = 50;
 
+  if (tamanioPantallaEscritorio.matches) {
+    tamanio = 50;
+  }
+  
   if (tamanioPantallaTablet.matches) {
     tamanio = 40;
   }
@@ -131,7 +132,6 @@ const generarCelda = (x, y, array) => {
 };
 
 const agregarGrillaAHTML = (ancho) => {
-  let anchoDeGrilla = 50 * ancho;
 
   if (tamanioPantallaEscritorio.matches) {
     anchoDeGrilla = 50 * ancho;
@@ -258,7 +258,17 @@ const intercambiarCeldas = (celda1, celda2) => {
   const datay1 = Number(celda1.dataset.y);
   const datay2 = Number(celda2.dataset.y);
 
-  const tamanio = 50;
+  if (tamanioPantallaEscritorio.matches) {
+    tamanio = 50;
+  }
+  
+  if (tamanioPantallaTablet.matches) {
+    tamanio = 40;
+  }
+
+  if (tamanioPantallaCelular.matches) {
+    tamanio = 35;
+  }
 
   // aqui modifico la grilla en JS
   let variableTemporal = listaDeAnimales[datax1][datay1];
@@ -296,18 +306,33 @@ const deseleccionarItem = () => {
 const descenderCelda = (celda) => {
   const x = Number(celda.dataset.x);
   const y = Number(celda.dataset.y);
-  const tamanio = 50;
+ 
+
+  if (tamanioPantallaEscritorio.matches) {
+    tamanio = 50;
+    adicional = 50
+  }
+  
+  if (tamanioPantallaTablet.matches) {
+    tamanio = 40;
+    adicional = 40
+  }
+
+  if (tamanioPantallaCelular.matches) {
+    tamanio = 35;
+    adicional = 35
+  }
 
   // aqui modifico la grilla en JS
   listaDeAnimales[x + 1][y] = listaDeAnimales[x][y];
 
   //aqui modifico la grilla en HTML
-  celda.style.top = `${x * tamanio + 50}px`;
+  celda.style.top = `${x * tamanio + adicional}px`;
   celda.dataset.x = x + 1;
 };
 
 // MATCHES HORIZONTALES
-// Esta funcion se utiliza para hacer descender los items cuando hay un match horizontal 
+// Esta funcion se utiliza para hacer descender los items cuando hay un match horizontal
 // y agrega elementos nuevos en la fila superior
 const reacomodarFilas = (matchesHorizontales) => {
   for (let i = 0; i < matchesHorizontales.length; i++) {
@@ -316,11 +341,12 @@ const reacomodarFilas = (matchesHorizontales) => {
 
     //Caso en que el match sea en la primera fila (fila 0)
     if (numeroDeDescensos === 0) {
-  
-     setTimeout(() => { agregarCeldaEnFilaSuperior(numColumna)},500)
+      setTimeout(() => {
+        agregarCeldaEnFilaSuperior(numColumna);
+      }, 500);
     } else {
       // caso en que el match sea en una fila inferior a la primera (fila 0)
-      let k = numeroDeDescensos
+      let k = numeroDeDescensos;
 
       for (let j = 0; j < numeroDeDescensos; j++) {
         let celdaADescender = document.querySelector(
@@ -330,17 +356,18 @@ const reacomodarFilas = (matchesHorizontales) => {
 
         descenderCelda(celdaADescender);
       }
-       
-     setTimeout(() => { agregarCeldaEnFilaSuperior(numColumna)},500)
 
+      setTimeout(() => {
+        agregarCeldaEnFilaSuperior(numColumna);
+      }, 500);
     }
   }
   //este booleano se va a utilizar en la funcion obtenerMatches()para indicar que NO tengo que ejecutar el código
   //que intercambia las celdas ya que hubo un match anteriormente.
-seEjecutoIntercambiarItem= false
-//llamo a la funcion obtenerMatches() para verificar si,despues de reacomodar las celdas hay un match nuevo.
-  obtenerMatches()
-}
+  seEjecutoIntercambiarItem = false;
+  //llamo a la funcion obtenerMatches() para verificar si,despues de reacomodar las celdas hay un match nuevo.
+  obtenerMatches();
+};
 
 // Crea un nuevo item para agregarlo a partir en la fila 0
 agregarCeldaEnFilaSuperior = (numColumna) => {
@@ -351,7 +378,6 @@ agregarCeldaEnFilaSuperior = (numColumna) => {
   let celdaAlTope = generarCelda(0, numColumna, listaDeAnimales);
   grilla.appendChild(celdaAlTope);
 };
-
 
 // MATCHES VERTICALES
 // Desciende items ya existentes cuando hay un match vertical
@@ -370,25 +396,22 @@ const reacomodarColumnas = (matchesVerticales) => {
   for (let i = 0; i < 3; i++) {
     listaDeAnimales[i][matchesVerticales[0][1]] = obtenerAnimalAlAzar(items);
 
-    listaDeAnimales[i][matchesVerticales[0][1]] = obtenerAnimalAlAzar(items)
+    listaDeAnimales[i][matchesVerticales[0][1]] = obtenerAnimalAlAzar(items);
 
-    let celda = generarCelda(i, matchesVerticales[0][1], listaDeAnimales)
-     
-    setTimeout(() => {grilla.appendChild(celda)},500)
-    
+    let celda = generarCelda(i, matchesVerticales[0][1], listaDeAnimales);
+
+    setTimeout(() => {
+      grilla.appendChild(celda);
+    }, 500);
   }
-    //este booleano se va a utilizar en la funcion obtenerMatches()para indicar que NO tengo que ejecutar el código
+  //este booleano se va a utilizar en la funcion obtenerMatches()para indicar que NO tengo que ejecutar el código
   //que intercambia las celdas ya que hubo un match anteriormente.
-  seEjecutoIntercambiarItem= false
+  seEjecutoIntercambiarItem = false;
   //llamo a la funcion obtenerMatches() para verificar si,despues de reacomodar las celdas hay un match nuevo.
-  obtenerMatches()
-}
-
-
+  obtenerMatches();
+};
 
 // Variables para acumular cantidad de matches (1 x cada combinacion)
-let matchesAcumuladosHorizontales = 0
-let matchesAcumuladosVerticales = 0
 
 // Funcion que revisa si hay coincidencia de 3 o mas items
 const obtenerMatches = () => {
@@ -397,41 +420,51 @@ const obtenerMatches = () => {
 
   for (let i = 0; i < listaDeAnimales.length; i++) {
     for (let j = 0; j < listaDeAnimales[i].length; j++) {
+      if (
+        listaDeAnimales[i][j] === listaDeAnimales[i][j + 1] &&
+        listaDeAnimales[i][j] === listaDeAnimales[i][j + 2]
+      ) {
+        matchesHorizontales.push([i, j]);
+        matchesHorizontales.push([i, j + 1]);
+        matchesHorizontales.push([i, j + 2]);
 
-      if (listaDeAnimales[i][j] === listaDeAnimales[i][j + 1] && listaDeAnimales[i][j] === listaDeAnimales[i][j + 2]) {
-
-        matchesHorizontales.push([i, j])
-        matchesHorizontales.push([i, j + 1])
-        matchesHorizontales.push([i, j + 2])
-
-        matchesAcumuladosHorizontales += 1
+        matchesAcumuladosHorizontales += 1;
       }
 
-      if (listaDeAnimales[i + 1] && listaDeAnimales[i + 2] && listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] && listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]) {
+      if (
+        listaDeAnimales[i + 1] &&
+        listaDeAnimales[i + 2] &&
+        listaDeAnimales[i][j] === listaDeAnimales[i + 1][j] &&
+        listaDeAnimales[i + 1][j] === listaDeAnimales[i + 2][j]
+      ) {
+        matchesVerticales.push([i, j]);
+        matchesVerticales.push([i + 1, j]);
+        matchesVerticales.push([i + 2, j]);
 
-        matchesVerticales.push([i, j])
-        matchesVerticales.push([i + 1, j])
-        matchesVerticales.push([i + 2, j])
-
-        matchesAcumuladosVerticales += 1
+        matchesAcumuladosVerticales += 1;
       }
     }
   }
 
   //Declaramos las variables de los elementos actualmente seleccionados
-  let primera = document.querySelector(".remarcar")
-  let segunda = document.querySelector(".segundaCelda")
+  let primera = document.querySelector(".remarcar");
+  let segunda = document.querySelector(".segundaCelda");
 
   // Devolvemos los items a sus lugares si no hay matches y si la funcion que se ejecutó anteriormente fue seleccionarItem()
-  //Esto ultimo se debe a que la funcion obtnerMatches puede ser llamada desde seleccionarItem(),reacomodarFilas() y reacomodarColumna(). En estos dos últimos casos 
+  //Esto ultimo se debe a que la funcion obtnerMatches puede ser llamada desde seleccionarItem(),reacomodarFilas() y reacomodarColumna(). En estos dos últimos casos
   //no tiene sentido devolver los items a su lugar.
-  if (matchesHorizontales.length == 0 && matchesVerticales.length == 0 && seEjecutoIntercambiarItem) {
-    setTimeout(() => { intercambiarCeldas(primera, segunda) }, 500)
-    primera.classList.remove("remarcar")
-    segunda.classList.remove("segundaCelda")
-
+  if (
+    matchesHorizontales.length == 0 &&
+    matchesVerticales.length == 0 &&
+    seEjecutoIntercambiarItem
+  ) {
+    setTimeout(() => {
+      intercambiarCeldas(primera, segunda);
+    }, 500);
+    primera.classList.remove("remarcar");
+    segunda.classList.remove("segundaCelda");
   }
-  puntosTotales()
+  puntosTotales();
 
   //solo deseleccionar item si se produjo un match
   if (matchesHorizontales.length > 0 || matchesVerticales.length > 0) {
@@ -473,33 +506,24 @@ const obtenerMatches = () => {
   }
 };
 
-
 // Acumulador de puntos por cada match
 const puntosTotales = () => {
   let puntajeVertical = 0;
   let puntajeHorizontal = 0;
 
   for (let i = 0; i < matchesAcumuladosVerticales; i++) {
-    puntajeVertical += 100
+    puntajeVertical += 100;
   }
 
   for (let i = 0; i < matchesAcumuladosHorizontales; i++) {
-    puntajeHorizontal += 100
+    puntajeHorizontal += 100;
   }
 
-  puntaje.innerHTML = puntajeVertical + puntajeHorizontal
-  puntajeFinal.innerHTML = puntajeVertical + puntajeHorizontal
-}
+  puntaje.innerHTML = puntajeVertical + puntajeHorizontal;
+  puntajeFinal.innerHTML = puntajeVertical + puntajeHorizontal;
+};
 
-puntosTotales()
-// deseleccionarItem()
-// reacomodarFilas(matchesHorizontales)
-// reacomodarFilas(matchesVerticales)
-
-
-const inicializarContador = () => {
-  puntaje.innerHTML = 0
-}
+puntosTotales();
 
 const mostrarModalFinDeJuego = () => {
   modalFinDeJuego.classList.remove("hidden");
