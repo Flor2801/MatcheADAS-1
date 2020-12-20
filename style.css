@@ -1,111 +1,106 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 body {
-    margin: 0px;
-    background-image: url(imagenes/2029.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  margin: 0px;
+  background-image: url(imagenes/2029.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .overlay {
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(226, 226, 226, 0.192);
-    display: flex;
-    justify-content: center;
-    align-items:center;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(226, 226, 226, 0.192);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .contenedor-juego {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0px;
 }
 
 .contador {
-    width: 350px;
-    height: 50px;
-    background-color: rgba(2, 248, 146, 0.863);
-    border-radius: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
+  width: 350px;
+  height: 50px;
+  background-color: rgba(2, 248, 146, 0.863);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-#boton-bienvenida, #segundos {
-    font-family: Montserrat, sans-serif;
+#boton-bienvenida,
+#segundos {
+  font-family: Montserrat, sans-serif;
 }
 
 .titulo {
-    font-family: 'Pacifico', cursive;
-    font-size: 25px;
-    color: rgb(255, 71, 141);
-    text-shadow: 5px 5px #fafafa, 1px -1px #fafafa, -1px -1px #fafafa, -1px 1px #fafafa;
-    margin-bottom: 5px;
+  font-family: "Pacifico", cursive;
+  font-size: 25px;
+  color: rgb(255, 71, 141);
+  text-shadow: 5px 5px #fafafa, 1px -1px #fafafa, -1px -1px #fafafa,
+    -1px 1px #fafafa;
+  margin-bottom: 5px;
 }
 
 .contenedor-timer {
-    width: 200px;
-    height: 50px;
-    background-color: rgba(2, 248, 146, 0.863);
-    border-radius: 10px;
-    margin-bottom: 10px;
-    display:flex;
-    justify-content:center;
-    align-items: center;
-    font-size: 30px;
-    color:white;
-    position: relative;
-   
-    
+  width: 200px;
+  height: 50px;
+  background-color: rgba(2, 248, 146, 0.863);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: white;
+  position: relative;
 }
 
 .fa-hourglass-half {
-    position:absolute;
-    left: 30px;
-    font-size: 20px;
+  position: absolute;
+  left: 30px;
+  font-size: 20px;
 }
-
-
 
 .puntos {
-    color: #fafafa;
-    font-family: Montserrat, sans-serif;
-    font-family: 'Pacifico', cursive;
-    font-size: 20px;
+  color: #fafafa;
+  font-family: Montserrat, sans-serif;
+  font-family: "Pacifico", cursive;
+  font-size: 20px;
 }
-
 
 .puntaje {
-    color: #fafafa;
-    font-family: Montserrat, sans-serif;
-    font-family: 'Pacifico', cursive;
-    font-size: 20px;
+  color: #fafafa;
+  font-family: Montserrat, sans-serif;
+  font-family: "Pacifico", cursive;
+  font-size: 20px;
 }
- 
 
 .bienvenida {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(61, 57, 57, 0.404);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(61, 57, 57, 0.404);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
 }
 
 /* .overlay {
@@ -120,103 +115,283 @@ body {
 } */
 
 .modal-bienvenida {
-    width: 470px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    padding: 20px;
+  width: 470px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 20px;
 }
 
 .texto-bienvenida {
-    font-family: Montserrat, sans-serif;
-    font-size: 15px;
-    text-align: center;
+  font-family: Montserrat, sans-serif;
+  font-size: 15px;
+  text-align: center;
 }
 
-.texto-bienvenida>h1 {
-    font-size: 25px;
+.texto-bienvenida > h1 {
+  font-size: 25px;
 }
 
 h1 {
-    display: block;
-    font-size: 2em;
-    margin-block-start: 0.67em;
-    margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
+  display: block;
+  font-size: 2em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
 }
 
-.texto-bienvenida>button {
-    color: white;
-    background-color: rgb(255, 0, 98);
-    border-radius: 5px;
-    border-style: none;
-    padding: 15px;
-    margin-top: 20px;
+.texto-bienvenida > button {
+  color: white;
+  background-color: rgb(255, 0, 98);
+  border-radius: 5px;
+  border-style: none;
+  padding: 15px;
+  margin-top: 20px;
 }
 
 /* comienza grilla  */
 
 .grilla {
-    width: 450px;
-    height: 300px;
-    background-color: rgba(190, 190, 190, 0.438);
-    border: white 2px solid;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
+  width: 450px;
+  height: 300px;
+  background-color: rgba(190, 190, 190, 0.438);
+  border: white 2px solid;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
 }
 
 .grilla > div {
-    width: 50px;
-    height: 50px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
-    position: absolute;
-    transition: 0.5s;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  position: absolute;
+  transition: 0.5s;
+  transform: scale(0.9);
+}
+
+.iconos-tablet {
+  transform: scale(0.7);
+}
+
+.iconos-celular {
+  transform: scale(0.3);
 }
 
 .remarcar {
-    border: 2px solid white;
-    transform: scale(1.1, 1.1);
+  border: 2px solid white;
+  transform: scale(1.1, 1.1);
 }
 
 #fin-de-juego {
-    width: 400px;
-    height: 200px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    position: relative;
-    bottom: 300px;
-    text-align: center;
-    z-index: 1;
+  width: 400px;
+  height: 200px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  position: relative;
+  bottom: 300px;
+  text-align: center;
+  z-index: 1;
 }
 
-#nuevo-juego, #reiniciar-juego {
-    color: white;
-    font-size: 15px;
-    background-color: rgb(255, 0, 98);
-    border-radius: 5px;
-    border-style: none;
-    padding: 10px;
-    margin-top: 20px;
-    font-family: Montserrat, sans-serif;
-}
- 
-.info, .reiniciar {
-    font-size: 20px;
-    cursor: pointer;
-    color: #fafafa;
-    border: 0;
-    background-color: transparent;
+#nuevo-juego,
+#reiniciar-juego {
+  color: white;
+  font-size: 15px;
+  background-color: rgb(255, 0, 98);
+  border-radius: 5px;
+  border-style: none;
+  padding: 10px;
+  margin-top: 20px;
+  font-family: Montserrat, sans-serif;
 }
 
+.info,
+.reiniciar {
+  font-size: 20px;
+  cursor: pointer;
+  color: #fafafa;
+  border: 0;
+  background-color: transparent;
+}
 
 .hidden {
-    display: none;
+  display: none;
+}
+
+/*------------------------- MEDIA QUERIES --------------------------------------*/
+
+@media (min-device-width: 400px) and (max-width: 700px) {
+  .modal-bienvenida {
+    width: 300px;
+  }
+
+  .texto-bienvenida {
+    font-size: 12px;
+  }
+
+  .texto-bienvenida > h1 {
+    font-size: 20px;
+  }
+
+  .texto-bienvenida > button {
+    padding: 12px;
+  }
+
+  #boton-bienvenida {
+    font-size: 10px;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  .contador {
+    width: 260px;
+    height: 40px;
+  }
+
+  .reiniciar {
+    font-size: 16px;
+  }
+
+  .info {
+    font-size: 16px;
+  }
+
+  .puntaje {
+    font-size: 18px;
+  }
+
+  .contenedor-timer {
+    width: 150px;
+    height: 40px;
+  }
+
+  .contenedor-timer > p {
+    font-size: 20px;
+    margin-left: 20px;
+  }
+
+  .contenedor-timer > i {
+    font-size: 15px;
+    margin-right: 20px;
+  }
+
+  .grilla > div {
+    font-size: 32px;
+  }
+
+  .grilla {
+    height: 260px;
+  }
+
+
+  #fin-de-juego {
+    width: 320px;
+    height: 160px;
+  }
+  #fin-de-juego > h2 {
+      margin-top: 25px;
+  }
+  
+  #nuevo-juego,
+  #reiniciar-juego { 
+    font-size: 10px;
+    padding: 8px;
+    margin-top: 10px;
+  }
+  
+
+}
+
+
+@media (max-width: 399px) {
+  h1 {
+    font-size: 30px;
+  }
+
+  .modal-bienvenida {
+    width: 250px;
+  }
+
+  .texto-bienvenida {
+    font-size: 10px;
+  }
+
+  .texto-bienvenida > h1 {
+    font-size: 18px;
+  }
+
+  .texto-bienvenida > button {
+    padding: 10px;
+  }
+
+  #boton-bienvenida {
+    font-size: 8px;
+  }
+
+  .puntaje {
+    font-size: 13px;
+  }
+
+  .contador {
+    width: 240px;
+    height: 30px;
+  }
+
+  .reiniciar {
+    font-size: 12px;
+  }
+
+  .info {
+    font-size: 12px;
+  }
+
+  .contenedor-timer {
+    width: 130px;
+    height: 30px;
+  }
+
+  .contenedor-timer > p {
+    font-size: 18px;
+    margin-left: 20px;
+  }
+
+  .contenedor-timer > i {
+    font-size: 15px;
+    margin-right: 20px;
+  }
+
+  .grilla > div {
+    font-size: 25px;
+  }
+
+  .grilla {
+    height: 230px;
+  }
+
+
+  #fin-de-juego {
+    width: 280px;
+    height: 140px;
+  }
+  #fin-de-juego > h2 {
+      margin-top: 25px;
+  }
+  
+  #nuevo-juego,
+  #reiniciar-juego { 
+    font-size: 8px;
+    padding: 8px;
+    margin-top: 10px;
+  }
+
 }
