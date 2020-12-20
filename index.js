@@ -453,17 +453,14 @@ const obtenerMatches = () => {
   // Devolvemos los items a sus lugares si no hay matches y si la funcion que se ejecutó anteriormente fue seleccionarItem()
   //Esto ultimo se debe a que la funcion obtnerMatches puede ser llamada desde seleccionarItem(),reacomodarFilas() y reacomodarColumna(). En estos dos últimos casos
   //no tiene sentido devolver los items a su lugar.
-  if (
-    matchesHorizontales.length == 0 &&
-    matchesVerticales.length == 0 &&
-    seEjecutoIntercambiarItem
-  ) {
+  if (matchesHorizontales.length == 0 && matchesVerticales.length == 0) {
     setTimeout(() => {
       intercambiarCeldas(primera, segunda);
     }, 500);
     primera.classList.remove("remarcar");
     segunda.classList.remove("segundaCelda");
   }
+
   puntosTotales();
 
   //solo deseleccionar item si se produjo un match
